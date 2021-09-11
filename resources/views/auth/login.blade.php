@@ -50,6 +50,11 @@ align-items-center
                                 <button class="btn btn-primary px-4" type="submit">Iniciar sesión</button>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <a href="{{ route('auth.google') }}" class="btn btn-primary px-4">Login with Google</a>
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>
