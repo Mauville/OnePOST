@@ -20,3 +20,10 @@ Route::group([
 
 Route::get('/logout', 'AuthController@logout')->name('logout')
     ->middleware(['web']);
+
+Route::group([
+    'middleware' => 'web'
+], function() {
+    Route::get('/google/redirect', 'OAuthController@redirectToGoogle')->name('google');
+    Route::get('/google/callback', 'OAuthController@handleGoogleCallback')->name('google.callback');
+});
