@@ -11,16 +11,16 @@
                 OnePOST
             @endif
         </title>
-        <link rel="stylesheet" href="https://unpkg.com/@coreui/coreui@3.4.0/dist/css/coreui.min.css">
-        <link rel="stylesheet" href="https://unpkg.com/@coreui/icons@2.0.0-beta.3/css/all.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+        <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
+        <link rel="stylesheet" href="https://unpkg.com/bulma-modal-fx/dist/css/modal-fx.min.css" />
         <meta name="robots" content="noindex">
-        @stack('layout_before_end_head')
+        @stack('styles')
     </head>
-    <body class="c-app flex-row @yield('layout_body_class_append')">
-        <div class="container">
-            @yield('content')
-        </div>
-        <script src="https://unpkg.com/@coreui/coreui@3.4.0/dist/js/coreui.bundle.min.js"></script>
-        @stack('layout_before_end_body')
+    <body>
+        @yield('content')
+        <script src="https://cdn.jsdelivr.net/npm/@coreui/coreui@4.0.0/dist/js/coreui.bundle.min.js" integrity="sha384-caJEC8fMoc6Q3cPepbgNz8nEv350Wy42/1qEtfZnUn6NGNTJWLkzCzXXz08CVs/B" crossorigin="anonymous"></script>
+        @stack('scripts')
     </body>
 </html>
