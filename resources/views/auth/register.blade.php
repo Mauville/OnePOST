@@ -4,69 +4,69 @@
     Registro
 @endsection
 
-@section('layout_body_class_append')
-align-items-center
-@endsection
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('styles.css') }}">
+@endpush
+
+@push('scripts')
+<script src="{{ asset('bulma.js') }}"></script>
+@endpush
 
 @section('content')
-<div class="row justify-content-center">
-    <div class="col-md-6">
-        <div class="card mx-4">
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-            <div class="card-body p-4">
-                <h1>Registrate</h1>
-                <p class="text-muted">
-                    Crea tu cuenta aquí
-                </p>
-                <form action="{{ route('auth.save-user') }}" method="POST">
-                    @csrf
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">
-                                <i class="cil-user"></i>
-                            </span>
-                        </div>
-                        <input class="form-control" name="name" type="text" placeholder="Nombre">
-                    </div>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">
-                                <i class="cil-envelope-open"></i>
-                            </span>
-                        </div>
-                        <input class="form-control" name="email" type="text" placeholder="Email">
-                    </div>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">
-                                <i class="cil-lock-locked"></i>
-                            </span>
-                        </div>
-                        <input class="form-control" name="password" type="password" placeholder="Contraseña">
-                    </div>
-                    <div class="input-group mb-4">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">
-                                <i class="cil-lock-locked"></i>
-                            </span>
-                        </div>
-                        <input class="form-control" name="password_confirmation" type="password" placeholder="Confirma la contraseña">
-                    </div>
-                    <button class="btn btn-block btn-success" type="submit">
-                        Registrarse
-                    </button>
-                </form>
-            </div>
+@if ($errors->any())
+    <div class="notification is-primary">
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
         </div>
     </div>
-</div>
+@endif
+<section class="container">
+  <div class="columns is-multiline">
+    <div class="column is-8 is-offset-2 register">
+      <div class="columns">
+        <div class="column left has-text-centered">
+          <h1 class="title is-4">Crea tu cuenta aquí </h1>
+          <form method="post" action="{{ route('auth.save-user') }}">
+            @csrf
+            <div class="field">
+              <div class="control">
+                <input class="input is-medium" type="text" name="name" placeholder="Nombre">
+              </div>
+            </div>
+            <div class="field">
+              <div class="control">
+                <input class="input is-medium" type="text" name="email" placeholder="Email">
+              </div>
+            </div>
+            <div class="field">
+              <div class="control">
+                <input class="input is-medium" type="password" name="password" placeholder="Contraseña">
+              </div>
+            </div>
+            <div class="field">
+              <div class="control">
+                <input class="input is-medium" type="password" name="password_confirmation" placeholder="Confirma la contraseña">
+              </div>
+            </div>
+            <button class="button is-block is-primary is-fullwidth is-medium mb-2" type="submit">Registrate</button>
+            <br />
+            <a href="{{ route('auth.login') }}" class="button is-text">
+                Inicia sesión
+            </a>
+          </form>
+        </div>
+        <div class="column right is-hidden-mobile">
+          <h1 class="title is-1">Registrate</h1>
+          <h2 class="subtitle colored is-4">Comienza la aventura con nosotros</h2>
+          <p>Estamos muy contentos de tenerte aqui.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 @endsection
 
