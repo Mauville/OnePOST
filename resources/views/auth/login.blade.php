@@ -1,17 +1,4 @@
 @extends('layouts.main')
-
-@section('title')
-    Inicio de sesión
-@endsection
-
-@push('styles')
-    <link rel="stylesheet" href="{{ asset('styles.css') }}">
-@endpush
-
-@push('scripts')
-<script src="{{ asset('bulma.js') }}"></script>
-@endpush
-
 @section('content')
 @if ($errors->any())
     <div class="notification is-primary">

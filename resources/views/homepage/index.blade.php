@@ -1,13 +1,4 @@
 @extends('layouts.main')
-
-@push('styles')
-    <link rel="stylesheet" href="{{ asset('styles.css') }}">
-@endpush
-
-@push('scripts')
-<script src="{{ asset('bulma.js') }}"></script>
-@endpush
-
 @section('content')
     <body>
         <section class="hero is-info is-medium is-bold">
@@ -30,7 +21,7 @@
                                 <div class="tabs is-right">
                                     <span class="navbar-item">
                                         <a class="button is-white is-outlined" href="{{ route('auth.logout') }}">
-                                            <span title="Hello from the other side">Cerrar sesión</span>
+                                            <span title="Botton de cerrar sesion">Cerrar sesión</span>
                                         </a>
                                     </span>
                                 </div>
@@ -39,12 +30,12 @@
                                 <div class="tabs is-right">
                                     <span class="navbar-item">
                                         <a class="button is-white is-outlined" href="{{ route('auth.register') }}">
-                                            <span title="Hello from the other side">Registrate</span>
+                                            <span title="Boton de registrar">Registrate</span>
                                         </a>
                                     </span>
                                     <span class="navbar-item">
                                         <a class="button is-white is-outlined" href="{{ route('auth.login') }}">
-                                            <span title="Hello from the other side">Inicia sesión</span>
+                                            <span title="Boton de iniciar sesion">Inicia sesión</span>
                                         </a>
                                     </span>
                                 </div>
