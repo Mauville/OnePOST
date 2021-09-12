@@ -70,7 +70,7 @@
                 <div class="column is-4">
                     <div class="card is-shady">
                         <div class="card-image has-text-centered">
-                            <i class="fa fa-paw"></i>
+                            <i class="fas fa-drafting-compass"></i>
                         </div>
                         <div class="card-content">
                             <div class="content">
@@ -84,7 +84,7 @@
                 <div class="column is-4">
                     <div class="card is-shady">
                         <div class="card-image has-text-centered">
-                            <i class="fa fa-empire"></i>
+                            <i class="fas fa-paint-roller"></i>
                         </div>
                         <div class="card-content">
                             <div class="content">
@@ -98,7 +98,7 @@
                 <div class="column is-4">
                     <div class="card is-shady">
                         <div class="card-image has-text-centered">
-                            <i class="fa fa-apple"></i>
+                            <i class="fas fa-palette"></i>
                         </div>
                         <div class="card-content">
                             <div class="content">
