@@ -9,11 +9,9 @@ class HomepageController extends Controller
 {
     public function index() {
 
-        /*
         if (auth()->user() !== null) {
-            return redirect()->route('dashboard.homepage');
+            return redirect()->route('dashboard.home');
         }
-         */
 
         return view('homepage.index');
     }
