@@ -66,3 +66,20 @@ via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilitie
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
 http://onepost.test/providers/register
+
+    user
+    provider
+    passwd
+    name
+    ema
+
+
+    art
+    url
+    date uploaded
+    views
+    likes
+
+    prov
+    type
+    token
