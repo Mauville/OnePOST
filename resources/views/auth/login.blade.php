@@ -23,7 +23,7 @@
         <div class="column right has-text-centered">
           <h1 class="title is-4">Inicia sesión en tu cuenta</h1>
           <form method="post" action="{{ route('auth.login-user') }}">
-            @csrf
+              @csrf
             <div class="field">
               <div class="control">
                 <input class="input is-medium" type="text" name="email" placeholder="Email">
