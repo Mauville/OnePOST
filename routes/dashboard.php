@@ -15,5 +15,6 @@ Route::group([
     'prefix' => 'works',
 ], function () {
     Route::get('history', 'WorksController@history')->name('works.history');
-    Route::get('post', 'WorksController@post')->name('works.post');
+    Route::get('post', 'WorksController@postPage')->name('works.post');
+    Route::post('post', 'WorksController@postWork')->name('works.postWork');
 });

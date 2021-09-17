@@ -1,15 +1,17 @@
 @extends('layouts.dashboard')
 @section('content')
+    @csrf
     <div class="columns">
         <div class="column">
             <p class="title is-1">Agregar Trabajo</p>
         </div>
     </div>
 
-    <form>
+    <form method="post" action={{ route("dashboard.works.postWork") }} enctype="multipart/form-data">
+        @csrf
         <div id="file-js-example" class="file has-name">
             <label class="file-label">
-                <input class="file-input" type="file" name="resume">
+                <input class="file-input" type="file" id="art" name="art">
                 <span class="file-cta">
       <span class="file-icon">
         <i class="fas fa-upload"></i>
@@ -41,7 +43,7 @@
             <label class="label">Publicar en:</label>
             <label class="checkbox">
                 <input type="checkbox" name="twitter">
-                Twitter
+                Twitter Account 1
             </label>
             <label class="checkbox" disabled>
                 <input type="checkbox" disabled>
@@ -62,7 +64,7 @@
         </div>
 
         <div class="control">
-            <button class="button is-primary">Submit</button>
+            <button type="submit" class="button is-primary">Submit</button>
         </div>
 
         {{--        This script adds the filename of an uploaded object. --}}

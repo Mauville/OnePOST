@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -18,6 +19,8 @@ class CreateProvidersTable extends Migration
             $table->timestamps();
             $table->string("type");
             $table->string("token");
+            $table->foreignIdFor(User::class, 'userID');
+            $table->string("token_secret");
         });
     }
 
