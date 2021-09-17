@@ -9,17 +9,17 @@
     <div class="flex-row">
         {{--    Twitter ButtonCard--}}
         <div class="column is-2 is-one-third-mobile">
-            <a class="flex-card" href="TODO TWITTER API LINK">
-                <img class="provider-logo" alt="twitter" src="{{ asset('img/twitter.png') }}">
-                <h3 class="center-text">
-                    Twitter
-                </h3>
+            <a class="flex-card" href={{ route("auth.twitterRedirect") }}></a>
+            <img class="provider-logo" alt="twitter" src="{{ asset('img/twitter.png') }}">
+            <h3 class="center-text">
+                Twitter
+            </h3>
             </a>
         </div>
 
         {{--    ig ButtonCard--}}
         <div class="column is-2 is-one-third-mobile">
-            <a class="flex-card inactive" href="TODO TWITTER API LINK">
+            <a class="flex-card inactive" href="#">
                 <img class="provider-logo" alt="instagram" src="{{ asset('img/instagram.png') }}">
                 <h3 class="center-text">
                     Instagram
@@ -29,7 +29,7 @@
 
         {{--    Patreon ButtonCard--}}
         <div class="column is-2 is-one-third-mobile">
-            <a class="flex-card inactive" href="TODO TWITTER API LINK">
+            <a class="flex-card inactive" href="#">
                 <img class="provider-logo" alt="patreon" src="{{ asset('img/patreon.png') }}">
                 <h3 class="center-text">
                     Patreon
@@ -38,7 +38,7 @@
         </div>
         {{--    Fantia ButtonCard--}}
         <div class="column is-2 is-one-third-mobile">
-            <a class="flex-card inactive" href="TODO TWITTER API LINK">
+            <a class="flex-card inactive" href="#">
                 <img class="provider-logo" alt="fantia" src="{{ asset('img/fantia.png') }}">
                 <h3 class="center-text">
                     Fantia
@@ -47,7 +47,7 @@
         </div>
         {{--    DeviantArt ButtonCard--}}
         <div class="column is-2 is-one-third-mobile">
-            <a class="flex-card inactive" href="TODO TWITTER API LINK">
+            <a class="flex-card inactive" href="#">
                 <img class="provider-logo" alt="DeviantArt" src="{{ asset('img/da.png') }}">
                 <h3 class="center-text">
                     DeviantArt

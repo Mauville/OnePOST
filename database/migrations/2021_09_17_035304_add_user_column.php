@@ -1,12 +1,11 @@
 <?php
 
-use App\Models\Provider;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserProviderTable extends Migration
+class AddUserColumn extends Migration
 {
     /**
      * Run the migrations.
@@ -15,10 +14,9 @@ class CreateUserProviderTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_provider', function (Blueprint $table) {
-            $table->foreignIdFor(User::class);
-            $table->foreignIdFor(Provider::class);
-            $table->timestamps();
+        Schema::table('providers', function (Blueprint $table) {
+            $table->foreignIdFor(User::class, 'userID');
+            $table->string("token_secret");
         });
     }
 
@@ -29,6 +27,10 @@ class CreateUserProviderTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_provider');
+        //
+        Schema::table("providers", function (Blueprint $table) {
+            $table->dropColumn("userID");
+            $table->dropColumn("token_secret");
+        });
     }
 }
