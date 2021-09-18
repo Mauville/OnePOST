@@ -25,13 +25,14 @@ class SocialPoster
     public function post()
     {
 //        TODO Refactor to correct response type
+        $sb = null;
         switch ($this->provider->type) {
             case "twitter":
                 Log::info("Enter twitter");
                 $sb = new TwitterBackend($this->provider->token, $this->provider->token_secret);
 
-                $response = $sb->post($this->artwork);
         }
+        $response = $sb->post($this->artwork);
         return $response;
     }
 

@@ -11,4 +11,6 @@ interface SocialBackend
     public function getStatistics(Artwork $artwork);
 
     public function refreshToken();
+
+    public function deletePost(Artwork $artwork);
 }
