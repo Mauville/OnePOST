@@ -56,6 +56,6 @@ class SocialController extends Controller
         $p->token = $access_token["oauth_token"];
         $p->token_secret = $access_token["oauth_token_secret"];
         $p->save();
-        return view("layouts.dashboard");
+        return redirect()->route('homepage');
     }
 }
