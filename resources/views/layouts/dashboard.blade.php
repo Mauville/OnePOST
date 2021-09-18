@@ -67,7 +67,7 @@
                                         Hola, {{ auth()->user()->name }}
                                     </h1>
                                     <h2 class="subtitle is-size-4">
-                                        {{ request()->route()->getName() === 'dashboard.works.history' ? 'Checa tus ultimas actualizaciones' : '' }}
+                                        {{ request()->route()->getName() === 'dashboard.works.history' ? 'Checa tus últimas actualizaciones' : '' }}
                                         {{ request()->route()->getName() === 'dashboard.providers.show' ? 'Administra tus cuentas de redes sociales' : '' }}
                                         {{ request()->route()->getName() === 'dashboard.providers.register' ? 'Agrega una nueva red social' : '' }}
                                         {{ request()->route()->getName() === 'dashboard.works.post' ? 'Difunde tus trabajo en tus redes' : '' }}

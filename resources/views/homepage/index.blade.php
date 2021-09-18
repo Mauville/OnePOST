@@ -21,7 +21,7 @@
                                 <div class="tabs is-right">
                                     <span class="navbar-item">
                                         <a class="button is-white is-outlined" href="{{ route('auth.logout') }}">
-                                            <span title="Botton de cerrar sesion">Cerrar sesión</span>
+                                            <span title="Botón de cerrar sesión">Cerrar sesión</span>
                                         </a>
                                     </span>
                                 </div>
@@ -30,12 +30,12 @@
                                 <div class="tabs is-right">
                                     <span class="navbar-item">
                                         <a class="button is-white is-outlined" href="{{ route('auth.register') }}">
-                                            <span title="Boton de registrar">Registrate</span>
+                                            <span title="Botón de registrar">Registrate</span>
                                         </a>
                                     </span>
                                     <span class="navbar-item">
                                         <a class="button is-white is-outlined" href="{{ route('auth.login') }}">
-                                            <span title="Boton de iniciar sesion">Inicia sesión</span>
+                                            <span title="Botón de iniciar sesión">Inicia sesión</span>
                                         </a>
                                     </span>
                                 </div>

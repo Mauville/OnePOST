@@ -2,19 +2,19 @@
 @section('content')
 <p class="title is-1">Mis trabajos</p>
 <div class="table-container">
-<table class="table has-text-centered is-fullwidth is-narrow is-striped is-hoverable">
-    <thead>
+    <table class="table has-text-centered is-fullwidth is-narrow is-striped is-hoverable">
+        <thead>
         <tr>
             <th>Miniatura</th>
             <th>Nombre</th>
-            <th>Fecha de difusion</th>
-            <th>Descripcion</th>
+            <th>Fecha de difusión</th>
+            <th>Descripción</th>
             <th>Tipo de contenido</th>
             <th>Proveedores</th>
             <th>Opciones</th>
         </tr>
-    </thead>
-    <tbody>
+        </thead>
+        <tbody>
         <tr>
             <th class="is-vcentered"><i class="fas fa-file-image fa-2x icon is-large"></i></th>
             <td class="is-vcentered">Enrique en la pradera</td>

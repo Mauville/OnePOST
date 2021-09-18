@@ -46,11 +46,11 @@
             </a>
           </form>
         </div>
-        <div class="column right is-hidden-mobile">
-          <h1 class="title is-1">Registrate</h1>
-          <h2 class="subtitle colored is-4">Comienza la aventura con nosotros</h2>
-          <p>Estamos muy contentos de tenerte aqui.</p>
-        </div>
+          <div class="column right is-hidden-mobile">
+              <h1 class="title is-1">Registrate</h1>
+              <h2 class="subtitle colored is-4">Comienza la aventura con nosotros</h2>
+              <p>Estamos muy contentos de tenerte aquí.</p>
+          </div>
       </div>
     </div>
   </div>
