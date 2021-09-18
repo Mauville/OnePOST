@@ -24,7 +24,7 @@
         <nav class="navbar is-primary">
             <div class="container">
                 <div class="navbar-brand">
-                    <a class="navbar-item brand-text" href="../index.html">
+                    <a class="navbar-item brand-text" href="{{ route('homepage') }}">
                        OnePOST Dash
                     </a>
                     <div class="navbar-burger burger" data-target="navMenu">
