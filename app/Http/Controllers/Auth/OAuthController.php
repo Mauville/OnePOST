@@ -37,6 +37,7 @@ class OAuthController extends Controller
             $finduser = User::where('google_id', $user->id)->first();
             if ($finduser) {
                 Auth::login($finduser);
+                return redirect()->route('homepage');
             } else {
                 $newUser = User::create([
                     'name' => $user->name,
