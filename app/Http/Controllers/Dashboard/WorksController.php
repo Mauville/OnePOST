@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\Artwork;
-use App\Models\Provider;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -32,7 +31,7 @@ class WorksController extends Controller
         $networks = array_keys($request->input("network"));
 
         // Mass Post
-        $providers = Provider::where("userID", Auth::user()->id)->whereIn("type", $networks)->get();
+        $providers = Auth::user()->providers()->whereIn("type", $networks)->get();
         foreach ($providers as $provider) {
             $provider->createPost($artwork);
         }
@@ -51,9 +50,10 @@ class WorksController extends Controller
      * An artwork ID with name "artworkID"
      * A provider type (hardcoded to default twitter in this case) with name "provider"
      *
-     * NOTE: The provider field should be an associative array.
-     * Refer to post.blade.php's checkboxes to see how proper naming works.
-     * uncomment line 1) and comment line 2) when the proper structure has been implemented
+     * NOTE: Since we don't want the user to painstakingly delete an image from each network manually, a checkbox for each network is needed.
+     * This changes the provider field into an array that's derived from a <fieldset>
+     * Refer to post.blade.php's checkboxes fieldset to see how proper naming works.
+     * uncomment line 1) and comment line 2) when the proper structure has been implemented on the view.
      */
     public function deleteWork(Request $request)
     {
@@ -64,7 +64,7 @@ class WorksController extends Controller
         $networks = $request->boolean('provider') ? "" : "twitter";
 
         $artwork = Artwork::find($request->artworkID);
-        $providers = Provider::where("userid", Auth::user()->id)->where("type", $networks)->get();
+        $providers = Auth::user()->providers()->whereIn("type", $networks)->get();
         foreach ($providers as $provider) {
             $provider->deletePost($artwork);
         }

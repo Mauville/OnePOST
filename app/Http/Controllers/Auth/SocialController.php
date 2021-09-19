@@ -3,15 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use Abraham\TwitterOAuth\TwitterOAuth;
-use App\Models\Provider;
-use App\Models\User;
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Models\Provider;
 use Illuminate\Http\Request;
-use Socialite;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Exception;
 
 class SocialController extends Controller
 {

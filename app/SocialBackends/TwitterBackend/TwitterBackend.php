@@ -5,12 +5,12 @@ namespace App\SocialBackends\TwitterBackend;
 use Abraham\TwitterOAuth\TwitterOAuth;
 use App\Models\Artwork;
 use App\SocialBackends\SocialBackend;
-use Illuminate\Support\Facades\Log;
 
 class TwitterBackend implements SocialBackend
 {
     private $token;
     private $connection;
+    private $secret_token;
 
     public function __construct($token, $secrettoken)
     {
@@ -23,7 +23,6 @@ class TwitterBackend implements SocialBackend
 
     public function createPost(Artwork $artwork)
     {
-        Log::info("Begin twitterPOST");
         $media = $this->connection->upload('media/upload', ['media' => storage_path("app/" . $artwork->URI)]);
         $parameters = [
             'status' => $artwork->description,
@@ -34,22 +33,21 @@ class TwitterBackend implements SocialBackend
 
         // Save response
         $artwork->twitter_media_id = $media->media_id_string;
-        $artwork->twitter_post_id = $response->id_string;
-        $artwork->published_to = json_encode(['provider' => 'twitter']);
+        $artwork->twitter_post_id = $response->id_str;
         $artwork->save();
 
         return $response;
     }
 
+    /**
+     * @param Artwork $artwork
+     * @return string[]
+     * Returns the retweet count and favorite_count of a tweet in an assoc array.
+     */
     public function getStatistics(Artwork $artwork)
     {
-        //"created_at": "Tue Mar 21 20:50:14 +0000 2006",
-        //"id": 20,
-        //"id_str": "20",
-        //"text": "just setting up my twttr",
-//        Definitely needs refactoring. this should be on the model.
         $results = $this->connection->get("statuses/lookup", ["id" => $artwork->twitter_post_id], true);
-        return $results;
+        return array_intersect_key(["retweet_count", "favorite_count"], $results);
 
     }
 
