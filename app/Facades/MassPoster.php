@@ -23,4 +23,17 @@ class MassPoster
         Log::info("end MassPoster");
         return $responses;
     }
+
+    public function delete(Artwork $artwork, Collection $providers): array
+    {
+        Log::info("Begin MassPoster");
+        $responses = [];
+        foreach ($providers as $provider) {
+            Log::info($provider);
+            $sp = new SocialPoster($artwork, $provider);
+            $responses[] = $sp->delete();
+        }
+        Log::info("end MassPoster");
+        return $responses;
+    }
 }

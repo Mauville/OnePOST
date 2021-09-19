@@ -37,12 +37,25 @@ class WorksController extends Controller
         $twitter = $request->boolean('twitter') ? "twitter" : "";
 
         // Mass Post
-        $provider = Provider::where("userID", Auth::user()->id)->where("type", $twitter)->get();
-        Log::info($provider);
+        $providers = Provider::where("userID", Auth::user()->id)->where("type", $twitter)->get();
+        Log::info($providers);
         $mp = new MassPoster();
-        $responses = $mp->post($artwork, $provider);
+        $responses = $mp->post($artwork, $providers);
         return view("works.history");
 
+    }
+
+    public function deleteWork(Request $request)
+    {
+//        A controller to delete posts. The request needs two fields:
+//        An artwork ID
+//        A provider type (hardcoded to twitter in this case)
+        $artwork = Artwork::find($request->id);
+        $provider = Provider::where("userid", Auth::user()->id)->where("type", "twitter")->get();
+        $mp = new MassPoster();
+        $responses = $mp->delete($artwork, $provider);
+        $artwork . delete();
+        return view("works.history");
     }
 }
 

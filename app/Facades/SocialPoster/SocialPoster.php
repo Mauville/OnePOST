@@ -36,4 +36,18 @@ class SocialPoster
         return $response;
     }
 
+    public function delete()
+    {
+//        TODO Refactor to correct response type
+        $sb = null;
+        switch ($this->provider->type) {
+            case "twitter":
+                Log::info("Enter twitter");
+                $sb = new TwitterBackend($this->provider->token, $this->provider->token_secret);
+
+        }
+        $response = $sb->deletePost($this->artwork);
+        return $response;
+    }
+
 }
