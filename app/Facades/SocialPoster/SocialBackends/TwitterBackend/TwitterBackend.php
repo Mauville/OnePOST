@@ -33,6 +33,7 @@ class TwitterBackend implements SocialBackend
         // Save response
         $artwork->twitter_media_id = $media->media_id_string;
         $artwork->twitter_post_id = $response->id_string;
+        $artwork->published_to = json_encode(['provider' => 'twitter']);
         $artwork->save();
 
         return $response;
@@ -40,12 +41,20 @@ class TwitterBackend implements SocialBackend
 
     public function getStatistics(Artwork $artwork)
     {
-        // TODO: Implement getStatistics() method.
+        //"created_at": "Tue Mar 21 20:50:14 +0000 2006",
+        //"id": 20,
+        //"id_str": "20",
+        //"text": "just setting up my twttr",
+//        Definitely needs refactoring. this should be on the model.
+        $results = $this->connection->get("statuses/lookup", ["id" => $artwork->twitter_post_id], true);
+        return $results;
+
     }
 
     public function refreshToken()
     {
-        // TODO: Implement refreshToken() method.
+        // Twitter needs no token refresh
+        return true;
     }
 
     public function deletePost(Artwork $artwork)
@@ -53,6 +62,7 @@ class TwitterBackend implements SocialBackend
         $result = $this->connection->post("statuses/destroy" . $artwork->twitter_post_id, [], true);
         $artwork->twitter_media_id = null;
         $artwork->twitter_post_id = null;
+        $artwork->published_to = null;
         return $result;
 
     }
