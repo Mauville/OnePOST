@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Facades\SocialPoster\SocialBackends;
+namespace App\SocialBackends\TwitterBackend;
 
 use Abraham\TwitterOAuth\TwitterOAuth;
 use App\Models\Artwork;
+use App\SocialBackends\SocialBackend;
 use Illuminate\Support\Facades\Log;
 
 class TwitterBackend implements SocialBackend
@@ -19,7 +20,8 @@ class TwitterBackend implements SocialBackend
         $this->connection->setTimeouts(10, 15);
     }
 
-    public function post(Artwork $artwork)
+
+    public function createPost(Artwork $artwork)
     {
         Log::info("Begin twitterPOST");
         $media = $this->connection->upload('media/upload', ['media' => storage_path("app/" . $artwork->URI)]);
