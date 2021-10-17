@@ -47,8 +47,10 @@ class TwitterBackend implements SocialBackend
     public function getStatistics(Artwork $artwork)
     {
         $results = $this->connection->get("statuses/lookup", ["id" => $artwork->twitter_post_id], true);
-        return array_intersect_key(["retweet_count", "favorite_count"], $results);
-
+        $stat = [];
+        $stat["retweet_count"] = $results[0]->retweet_count;
+        $stat["favorite_count"] = $results[0]->favorite_count;
+        return $stat;
     }
 
     public function refreshToken()
