@@ -14,22 +14,29 @@ class WorksController extends Controller
 {
     public function history()
     {
-        return view('works.history');
+        $artworks = Auth::user()->artworks;
+        return view('works.history', compact('artworks'));
     }
 
     public function postPage()
     {
-        return view('works.post');
+        $providers = Auth::user()->providers;
+        return view('works.post', compact('providers'));
     }
 
     public function postWork(Request $request)
     {
+        $data = $request->validate([
+            'art' => 'required|mimes:jpg,png,gif,mp4',
+            'name' => 'required',
+            'description' => 'required',
+            'providersId' => 'required|array'
+        ]);
         // Lookup networks to post to
-        $networks = array_keys($request->input("network"));
+        $ids = array_keys($data['providersId']);
 
         // Find if the user has artworks
-        $providers = Auth::user()->providers()->whereIn("type", $networks)->get();
-        dd($providers);
+        $providers = Auth::user()->providers()->whereIn("id", $ids)->get();
         if ($providers->isEmpty()) { 
             return view("works.history");
         }
