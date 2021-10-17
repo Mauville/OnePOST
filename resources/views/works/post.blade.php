@@ -27,40 +27,46 @@
         </div>
 
         <div class="field">
-            <label class="label">Título</label>
             <div class="control">
-                <input class="input" type="text" name="title" placeholder="Título de la Obra">
+                <label class="label">Título
+                    <input class="input" type="text" name="name" placeholder="Título de la Obra">
+                </label>
             </div>
         </div>
         <div class="field">
-            <label class="label">Descripción</label>
             <div class="control">
-                <textarea class="textarea" name="description" placeholder="Descripción de la Obra"></textarea>
+                <label class="label">Descripción
+                    <textarea class="textarea" name="description" placeholder="Descripción de la Obra"></textarea>
+                </label>
             </div>
         </div>
 
         <div class="field">
-            <label class="label">Publicar en:</label>
-            <label class="checkbox">
-                <input type="checkbox" name="twitter">
-                Twitter Account 1
-            </label>
-            <label class="checkbox" disabled>
-                <input type="checkbox" disabled>
-                Patreon
-            </label>
-            <label class="checkbox" disabled>
-                <input type="checkbox" disabled>
-                Instagram
-            </label>
-            <label class="checkbox" disabled>
-                <input type="checkbox" disabled>
-                Fantia
-            </label>
-            <label class="checkbox" disabled>
-                <input type="checkbox" disabled>
-                DeviantArt
-            </label>
+            <fieldset name="">
+                <label class="label">Publicar en:
+                    {{--        TODO Make these dynamic--}}
+                    <label class="checkbox">
+                        <input type="checkbox" name="network[twitter]">
+                        Twitter
+                    </label>
+                    <label class="checkbox" disabled>
+                        <input type="checkbox" name="network[patreon]" disabled>
+                        Patreon
+                    </label>
+                    <label class="checkbox" disabled>
+                        <input type="checkbox" name="network[instagram]" disabled>
+                        Instagram
+                    </label>
+                    <label class="checkbox" disabled>
+                        <input type="checkbox" name="network[fantia]" disabled>
+                        Fantia
+                    </label>
+                    <label class="checkbox" disabled>
+                        <input type="checkbox" name="network[deviant]" disabled>
+                        DeviantArt
+                    </label>
+                </label>
+            </fieldset>
         </div>
 
         <div class="control">

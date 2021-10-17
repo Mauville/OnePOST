@@ -1,14 +1,16 @@
 <?php
 
-namespace App\Facades\SocialPoster\SocialBackends;
+namespace App\SocialBackends;
 
 use App\Models\Artwork;
 
 interface SocialBackend
 {
-    public function post(Artwork $artwork);
+    public function createPost(Artwork $artwork);
 
     public function getStatistics(Artwork $artwork);
 
     public function refreshToken();
+
+    public function deletePost(Artwork $artwork);
 }

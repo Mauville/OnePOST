@@ -17,4 +17,5 @@ Route::group([
     Route::get('history', 'WorksController@history')->name('works.history');
     Route::get('post', 'WorksController@postPage')->name('works.post');
     Route::post('post', 'WorksController@postWork')->name('works.postWork');
+    Route::post('delete', 'WorksController@deleteWork')->name('works.deleteWork');
 });
