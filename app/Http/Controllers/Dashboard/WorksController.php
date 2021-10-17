@@ -24,14 +24,20 @@ class WorksController extends Controller
 
     public function postWork(Request $request)
     {
-        // Build artwork
-        $artwork = Artwork::fromRequest($request);
-
         // Lookup networks to post to
         $networks = array_keys($request->input("network"));
 
-        // Mass Post
+        // Find if the user has artworks
         $providers = Auth::user()->providers()->whereIn("type", $networks)->get();
+        dd($providers);
+        if ($providers->isEmpty()) { 
+            return view("works.history");
+        }
+        
+        $artwork = Artwork::fromRequest($request);
+
+
+        // Mass Post
         foreach ($providers as $provider) {
             $provider->createPost($artwork);
         }

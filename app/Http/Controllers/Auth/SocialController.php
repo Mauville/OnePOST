@@ -45,12 +45,7 @@ class SocialController extends Controller
         ];
         // We're finally on 4)! We convert user keys into user oauth token and store it
         $access_token = $connection->oauth("oauth/access_token", $headers);
-        $p = new Provider();
-        $p->userID = Auth::user()->id;
-        $p->type = "twitter";
-        $p->token = $access_token["oauth_token"];
-        $p->token_secret = $access_token["oauth_token_secret"];
-        $p->save();
-        return redirect()->route('homepage');
+        Provider::addProvider($access_token, "twitter");
+        return redirect()->route('dashboard.providers.show');
     }
 }

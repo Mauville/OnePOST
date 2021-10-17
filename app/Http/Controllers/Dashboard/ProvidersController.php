@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProvidersController extends Controller
 {
     public function showProviders()
     {
-        return view('providers.providers');
+        $providers = Auth::user()->providers;
+        return view('providers.providers', compact('providers'));
     }
 
     public function register()

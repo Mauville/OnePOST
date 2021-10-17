@@ -5,11 +5,29 @@ namespace App\Models;
 use App\SocialBackends\TwitterBackend\TwitterBackend;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Provider extends Model
 {
     use HasFactory;
 
+    public static function addProvider($access_token, $type) {
+        $username = $access_token["screen_name"];
+        $p = Provider::where('type', $type)->where('username', $username)->first();
+        if ($p->exists()) {
+            $p->token = $access_token["oauth_token"];
+            $p->token_secret = $access_token["oauth_token_secret"];
+            $p->save();
+            return;
+        }
+        $p = new Provider();
+        $p->userID = Auth::user()->id;
+        $p->type = "twitter";
+        $p->token = $access_token["oauth_token"];
+        $p->token_secret = $access_token["oauth_token_secret"];
+        $p->username= $access_token["screen_name"];
+        $p->save();
+    }
 
     private function postTwitter(Artwork $artwork)
     {

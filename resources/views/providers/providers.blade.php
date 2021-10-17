@@ -19,36 +19,18 @@
         </tr>
     </thead>
     <tbody>
+    @foreach($providers as $provider)
         <tr>
-            <td class="is-vcentered">Twitter</td>
-            <td class="is-vcentered">enroak</td>
+            <td class="is-vcentered">{{ $provider->type }}</td>
+            <td class="is-vcentered">{{ $provider->username }}</td>
             <td class="is-vcentered">
                 <div class="buttons">
-                  <button class="button is-info is-fullwidth">Reautentificar</button>
+                  <!-- <button class="button is-info is-fullwidth">Reautentificar</button>-->
                   <button class="button is-danger is-fullwidth">Eliminar</button>
                 </div>
             </td>
         </tr>
-        <tr>
-            <td class="is-vcentered">Facebook</td>
-            <td class="is-vcentered">enroak</td>
-            <td class="is-vcentered">
-                <div class="buttons">
-                  <button class="button is-info is-fullwidth">Reautentificar</button>
-                  <button class="button is-danger is-fullwidth">Eliminar</button>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td class="is-vcentered">Instagram</td>
-            <td class="is-vcentered">enroak</td>
-            <td class="is-vcentered">
-                <div class="buttons">
-                  <button class="button is-info is-fullwidth">Reautentificar</button>
-                  <button class="button is-danger is-fullwidth">Eliminar</button>
-                </div>
-            </td>
-        </tr>
+    @endforeach
     </tbody>
 </table>
 </div>
