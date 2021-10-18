@@ -79,17 +79,25 @@ class WorksController extends Controller
 //        $networks = array_keys($request->input("network"));
         // 2)
         $data = $request->validate([
-            'providersId' => 'required|array'
+            'providersId' => 'required|array',
         ]);
+
+        if ($data["permanently"] == 1) {
+            $providers = $artwork->providers;
+            foreach($providers as $provider) {
+                $provider->deletePost($artwork);
+            }
+            $artwork->delete();
+            return redirect()->route('dashboard.works.history');
+        }
         // Lookup networks to post to
         $ids = array_keys($data['providersId']);
 
         // Find if the user has artworks
-        $providers = Auth::user()->providers()->whereIn("id", $ids)->get();
+        $providers = $artwork->providers()->whereIn("id", $ids)->get();
         foreach ($providers as $provider) {
             $provider->deletePost($artwork);
         }
-        $artwork->delete();
         return redirect()->route('dashboard.works.history');
     }
 }

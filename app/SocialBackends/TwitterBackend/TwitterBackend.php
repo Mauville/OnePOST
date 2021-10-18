@@ -35,7 +35,6 @@ class TwitterBackend implements SocialBackend
         $artwork->twitter_media_id = $media->media_id_string;
         $artwork->twitter_post_id = $response->id_str;
         $artwork->save();
-
         return $response;
     }
 

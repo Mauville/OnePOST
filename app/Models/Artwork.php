@@ -55,4 +55,10 @@ class Artwork extends Model
     public function user() {
         return $this->belongsTo(User::class, "userID");
     }
+
+    public function movements()
+    {
+        return $this->hasMany(ArtworkMovement::class,
+            'artworkID');
+    }
 }

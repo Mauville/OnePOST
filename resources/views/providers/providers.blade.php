@@ -26,7 +26,7 @@
             <td class="is-vcentered">
                 <div class="buttons">
                   <!-- <button class="button is-info is-fullwidth">Reautentificar</button>-->
-                  <button class="button is-danger is-fullwidth">Eliminar</button>
+                  <a class="button is-danger is-fullwidth" href="{{ route('dashboard.providers.deleteConfirmation', compact('provider')) }}">Eliminar</a>
                 </div>
             </td>
         </tr>

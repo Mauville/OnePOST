@@ -14,7 +14,7 @@ class Provider extends Model
     public static function addProvider($access_token, $type) {
         $username = $access_token["screen_name"];
         $p = Provider::where('type', $type)->where('username', $username)->first();
-        if ($p->exists()) {
+        if ($p) {
             $p->token = $access_token["oauth_token"];
             $p->token_secret = $access_token["oauth_token_secret"];
             $p->save();
@@ -45,6 +45,12 @@ class Provider extends Model
 
     public function createPost(Artwork $artwork)
     {
+        $movement = new ArtworkMovement;
+        $movement->type = "UPLOAD";
+        $movement->provider_name = $this->type;
+        $movement->username = $this->username;
+        $movement->artworkID = $artwork->id;
+        $movement->save();
         switch ($this->type) {
             case "twitter":
                 return $this->postTwitter($artwork);
@@ -74,6 +80,11 @@ class Provider extends Model
                 return $this->twitterStatistics($artwork);
         }
         return null;
+    }
+
+    public function artworks()
+    {
+        return $this->belongsToMany(Artwork::class);
     }
 
     public function user()

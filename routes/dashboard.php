@@ -9,6 +9,8 @@ Route::group([
 ], function () {
     Route::get('', 'ProvidersController@showProviders')->name('providers.show');
     Route::get('register', 'ProvidersController@register')->name('providers.register');
+    Route::get('delete/{provider}', 'ProvidersController@deleteConfirmation')->name('providers.deleteConfirmation');
+    Route::post('delete/{provider}', 'ProvidersController@deleteProvider')->name('providers.deleteProvider');
 });
 
 Route::group([

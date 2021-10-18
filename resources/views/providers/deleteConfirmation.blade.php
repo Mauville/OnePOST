@@ -1,7 +1,20 @@
 @extends('layouts.dashboard')
 @section('content')
-<p class="title is-1">Mis trabajos</p>
-<div class="table-container">
+    @csrf
+    <div class="columns">
+        <div class="column">
+            <p class="title is-1">Eliminar Proveedor: {{ $provider->type }} con {{ $provider->username }}</p>
+        </div>
+    </div>
+    @if ($errors->any())
+    <div class="notification is-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
     <table class="table has-text-centered is-fullwidth is-narrow is-striped is-hoverable">
         <thead>
         <tr>
@@ -11,11 +24,10 @@
             <th>Fecha de modificación</th>
             <th>Descripción</th>
             <th>Stats</th>
-            <th>Acciones</th>
         </tr>
         </thead>
         <tbody>
-        @foreach($artworks as $artwork)
+        @foreach($provider->artworks as $artwork)
         <tr>
             <th class="is-vcentered"><figure class="image is-32x32">
                 <img src="{{ asset($artwork->URI) }}"></figure>
@@ -26,22 +38,23 @@
             <td class="is-vcentered">{{ $artwork->description }}</td>
             <td class="is-vcentered">
                 <ul>
-                @foreach($artwork->getStatistics() as $provider => $stats)
-                    <li>En {{ $provider }}</li>
+                @foreach($artwork->getStatistics() as $providerName => $stats)
+                    <li>En {{ $providerName }}</li>
                     <li>Retweets: {{ $stats["retweet_count"] }}</li>
                     <li>Favoritos: {{ $stats["favorite_count"] }}</li>
                 @endforeach
                 </ul>
             </td>
-            <td class="is-vcentered">
-                <div class="buttons">
-                  <button class="button is-success is-fullwidth">Redifundir</button>
-                  <a class="button is-danger is-fullwidth" href="{{ route('dashboard.works.deleteConfirmation', compact('artwork')) }}">Eliminar</a>
-                </div>
-            </td>
         </tr>
-    @endforeach
+        @endforeach
     </tbody>
 </table>
-</div>
+
+    <form method="post" action={{ route("dashboard.providers.deleteProvider", compact('provider')) }} enctype="multipart/form-data">
+        @csrf
+        <div class="control">
+            <button type="submit" class="button is-danger">Confirmar eliminar proveedor</button>
+        </div>
+    </form>
+
 @endsection
