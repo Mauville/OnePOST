@@ -61,7 +61,7 @@ class TwitterBackend implements SocialBackend
 
     public function deletePost(Artwork $artwork)
     {
-        $result = $this->connection->post("statuses/destroy" . $artwork->twitter_post_id, [], true);
+        $result = $this->connection->post("statuses/destroy/" . $artwork->twitter_post_id, [], true);
         $artwork->twitter_media_id = null;
         $artwork->twitter_post_id = null;
         $artwork->published_to = null;

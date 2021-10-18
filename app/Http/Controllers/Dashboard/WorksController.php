@@ -38,7 +38,7 @@ class WorksController extends Controller
         // Find if the user has artworks
         $providers = Auth::user()->providers()->whereIn("id", $ids)->get();
         if ($providers->isEmpty()) { 
-            return view("works.history");
+            return redirect()->route('dashboard.works.history');
         }
         
         $artwork = Artwork::fromRequest($request);
@@ -48,8 +48,12 @@ class WorksController extends Controller
         foreach ($providers as $provider) {
             $provider->createPost($artwork);
         }
-        return view("works.history");
+        return redirect()->route('dashboard.works.history');
 
+    }
+
+    public function deleteConfirmation(Artwork $artwork) {
+        return view("works.deleteConfirmation", compact('artwork'));
     }
 
     /**
@@ -68,21 +72,25 @@ class WorksController extends Controller
      * Refer to post.blade.php's checkboxes fieldset to see how proper naming works.
      * uncomment line 1) and comment line 2) when the proper structure has been implemented on the view.
      */
-    public function deleteWork(Request $request)
+    public function deleteWork(Artwork $artwork, Request $request)
     {
 
 //        // 1)
 //        $networks = array_keys($request->input("network"));
         // 2)
-        $networks = $request->boolean('provider') ? "" : "twitter";
+        $data = $request->validate([
+            'providersId' => 'required|array'
+        ]);
+        // Lookup networks to post to
+        $ids = array_keys($data['providersId']);
 
-        $artwork = Artwork::find($request->artworkID);
-        $providers = Auth::user()->providers()->whereIn("type", $networks)->get();
+        // Find if the user has artworks
+        $providers = Auth::user()->providers()->whereIn("id", $ids)->get();
         foreach ($providers as $provider) {
             $provider->deletePost($artwork);
         }
         $artwork->delete();
-        return view("works.history");
+        return redirect()->route('dashboard.works.history');
     }
 }
 

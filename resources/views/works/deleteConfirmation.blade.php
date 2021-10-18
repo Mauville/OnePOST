@@ -1,7 +1,20 @@
 @extends('layouts.dashboard')
 @section('content')
-<p class="title is-1">Mis trabajos</p>
-<div class="table-container">
+    @csrf
+    <div class="columns">
+        <div class="column">
+            <p class="title is-1">Eliminar Trabajo</p>
+        </div>
+    </div>
+    @if ($errors->any())
+    <div class="notification is-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
     <table class="table has-text-centered is-fullwidth is-narrow is-striped is-hoverable">
         <thead>
         <tr>
@@ -14,7 +27,6 @@
         </tr>
         </thead>
         <tbody>
-        @foreach($artworks as $artwork)
         <tr>
             <th class="is-vcentered"><figure class="image is-32x32">
                 <img src="{{ asset($artwork->URI) }}"></figure>
@@ -32,15 +44,27 @@
                 @endforeach
                 </ul>
             </td>
-            <td class="is-vcentered">
-                <div class="buttons">
-                  <button class="button is-success is-fullwidth">Redifundir</button>
-                  <a class="button is-danger is-fullwidth" href="{{ route('dashboard.works.deleteConfirmation', compact('artwork')) }}">Eliminar</a>
-                </div>
-            </td>
         </tr>
-    @endforeach
     </tbody>
 </table>
-</div>
+
+    <form method="post" action={{ route("dashboard.works.deleteWork", compact('artwork')) }} enctype="multipart/form-data">
+        <div class="field">
+            <fieldset name="">
+                <label class="label">Eliminar de:
+                    @foreach($artwork->providers as $provider)
+                    <label class="checkbox">
+                        <input type="checkbox" name="providersId[{{ $provider->id }}]">
+                        {{ $provider->type }} con: {{ $provider->username}}
+                    </label>
+                    @endforeach
+                </label>
+            </fieldset>
+        </div>
+        @csrf
+        <div class="control">
+            <button type="submit" class="button is-danger">Confirmar eliminar</button>
+        </div>
+    </form>
+
 @endsection
