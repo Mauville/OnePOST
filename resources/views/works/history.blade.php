@@ -26,7 +26,11 @@
             <td class="is-vcentered">{{ $artwork->description }}</td>
             <td class="is-vcentered">
                 <ul>
-                @foreach($artwork->getStatistics() as $provider => $stats)
+                @php ($all_stats = $artwork->getStatistics())
+                @if (!$all_stats)
+                No hay proveedores conectados
+                @endif
+                @foreach($all_stats as $provider => $stats)
                     <li>En {{ $provider }}</li>
                     <li>Retweets: {{ $stats["retweet_count"] }}</li>
                     <li>Favoritos: {{ $stats["favorite_count"] }}</li>
