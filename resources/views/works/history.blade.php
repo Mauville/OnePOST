@@ -2,6 +2,7 @@
 @section('content')
 <p class="title is-1">Mis trabajos</p>
 <div class="table-container">
+    @if (!$artworks->isEmpty())
     <table class="table has-text-centered is-fullwidth is-narrow is-striped is-hoverable">
         <thead>
         <tr>
@@ -44,8 +45,13 @@
                 </div>
             </td>
         </tr>
-    @endforeach
-    </tbody>
-</table>
+        @endforeach
+        </tbody>
+    </table>
+    @else
+    <div class="section">
+        <p>Haz click en difundir trabajo y difunde tu primer trabajo.</p>
+    </div>
+    @endif
 </div>
 @endsection

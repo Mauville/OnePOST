@@ -15,6 +15,8 @@
         </ul>
     </div>
     @endif
+    @php($artworks = $provider->artworks)
+    @if (!$artworks->isEmpty())
     <table class="table has-text-centered is-fullwidth is-narrow is-striped is-hoverable">
         <thead>
         <tr>
@@ -27,7 +29,7 @@
         </tr>
         </thead>
         <tbody>
-        @foreach($provider->artworks as $artwork)
+        @foreach($artworks as $artwork)
         <tr>
             <th class="is-vcentered"><figure class="image is-32x32">
                 <img src="{{ asset($artwork->URI) }}"></figure>
@@ -47,14 +49,13 @@
             </td>
         </tr>
         @endforeach
-    </tbody>
-</table>
-
-    <form method="post" action={{ route("dashboard.providers.deleteProvider", compact('provider')) }} enctype="multipart/form-data">
-        @csrf
-        <div class="control">
-            <button type="submit" class="button is-danger">Confirmar eliminar proveedor</button>
-        </div>
-    </form>
+        </tbody>
+    </table>
+    @else
+    <div class="section">
+        <p>Sin trabajos relacionados.</p>
+    </div>
+    @endif
+    <a class="button is-danger" href={{ route("dashboard.providers.deleteProvider", compact('provider'))}}>Confirmar eliminar proveedor</a>
 
 @endsection

@@ -82,22 +82,20 @@ class WorksController extends Controller
             'providersId' => 'required|array',
         ]);
 
-        if ($data["permanently"] == 1) {
-            $providers = $artwork->providers;
-            foreach($providers as $provider) {
-                $provider->deletePost($artwork);
-            }
-            $artwork->delete();
-            return redirect()->route('dashboard.works.history');
-        }
         // Lookup networks to post to
         $ids = array_keys($data['providersId']);
 
         // Find if the user has artworks
-        $providers = $artwork->providers()->whereIn("id", $ids)->get();
+        $providers = $artwork->providers()->whereIn("provider_id", $ids)->get();
         foreach ($providers as $provider) {
             $provider->deletePost($artwork);
         }
+        return redirect()->route('dashboard.works.history');
+    }
+
+    public function deletePermanently(Artwork $artwork)
+    {
+        $artwork->delete();
         return redirect()->route('dashboard.works.history');
     }
 }

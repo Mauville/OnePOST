@@ -9,8 +9,8 @@ Route::group([
 ], function () {
     Route::get('', 'ProvidersController@showProviders')->name('providers.show');
     Route::get('register', 'ProvidersController@register')->name('providers.register');
-    Route::get('delete/{provider}', 'ProvidersController@deleteConfirmation')->name('providers.deleteConfirmation');
-    Route::post('delete/{provider}', 'ProvidersController@deleteProvider')->name('providers.deleteProvider');
+    Route::get('delete/{provider}/ask', 'ProvidersController@deleteConfirmation')->name('providers.deleteConfirmation');
+    Route::get('delete/{provider}', 'ProvidersController@deleteProvider')->name('providers.deleteProvider');
 });
 
 Route::group([
@@ -19,6 +19,7 @@ Route::group([
     Route::get('history', 'WorksController@history')->name('works.history');
     Route::get('post', 'WorksController@postPage')->name('works.post');
     Route::post('post', 'WorksController@postWork')->name('works.postWork');
-    Route::get('delete/{artwork}', 'WorksController@deleteConfirmation')->name('works.deleteConfirmation');
+    Route::get('delete/{artwork}/ask', 'WorksController@deleteConfirmation')->name('works.deleteConfirmation');
     Route::post('delete/{artwork}', 'WorksController@deleteWork')->name('works.deleteWork');
+    Route::get('delete/{artwork}/permanently', 'WorksController@deletePermanently')->name('works.deletePermanently');
 });
