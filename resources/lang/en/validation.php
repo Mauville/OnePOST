@@ -140,6 +140,20 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'art' => [
+            'required' => 'Por favor elige un archivo.',
+            'mimes' => "Solo se acepta .jpg, .png, .gif y .mp4."
+        ],
+        'name' => [
+            'required' => 'El nombre es requerido.',
+        ],
+        'description' => [
+            'required' => 'La descripción es requerida.',
+        ],
+        'providersId' => [
+            'required' => 'Elige al menos un proveedor.',
+            'array' => 'Elige al menos un proveedor.'
+        ],
     ],
 
     /*

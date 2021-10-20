@@ -47,4 +47,10 @@ class User extends Authenticatable
         return $this->hasMany(Provider::class,
             'userID');
     }
+    
+    public function artworks()
+    {
+        return $this->hasMany(Artwork::class,
+            'userID');
+    }
 }

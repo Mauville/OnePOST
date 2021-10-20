@@ -1,7 +1,26 @@
 @extends('layouts.dashboard')
 @section('content')
-<p class="title is-1">Mis trabajos</p>
-<div class="table-container">
+    @csrf
+    <div class="columns">
+        <div class="column">
+            <p class="title is-1">Eliminar Proveedor: {{ $provider->type }} con {{ $provider->username }}</p>
+        </div>
+    </div>
+    <div class="columns">
+        <div class="column">
+            <p class="subtitle is-4">Trabajos difundidos con este proveedor</p>
+        </div>
+    </div>
+    @if ($errors->any())
+    <div class="notification is-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+    @php($artworks = $provider->artworks)
     @if (!$artworks->isEmpty())
     <table class="table has-text-centered is-fullwidth is-narrow is-striped is-hoverable">
         <thead>
@@ -12,7 +31,6 @@
             <th>Fecha de modificación</th>
             <th>Descripción</th>
             <th>Stats</th>
-            <th>Acciones</th>
         </tr>
         </thead>
         <tbody>
@@ -27,22 +45,12 @@
             <td class="is-vcentered">{{ $artwork->description }}</td>
             <td class="is-vcentered">
                 <ul>
-                @php ($all_stats = $artwork->getStatistics())
-                @if (!$all_stats)
-                Sin conexión a un proveedor.
-                @endif
-                @foreach($all_stats as $provider => $stats)
-                    <li>En {{ $provider }}</li>
+                @foreach($artwork->getStatistics() as $providerName => $stats)
+                    <li>En {{ $providerName }}</li>
                     <li>Retweets: {{ $stats["retweet_count"] }}</li>
                     <li>Favoritos: {{ $stats["favorite_count"] }}</li>
                 @endforeach
                 </ul>
-            </td>
-            <td class="is-vcentered">
-                <div class="buttons">
-                  <button class="button is-success is-fullwidth">Redifundir</button>
-                  <a class="button is-danger is-fullwidth" href="{{ route('dashboard.works.deleteConfirmation', compact('artwork')) }}">Eliminar</a>
-                </div>
             </td>
         </tr>
         @endforeach
@@ -50,8 +58,9 @@
     </table>
     @else
     <div class="section">
-        <p>Haz click en difundir trabajo y difunde tu primer trabajo.</p>
+        <p>Sin trabajos relacionados.</p>
     </div>
     @endif
-</div>
+    <a class="button is-danger" href={{ route("dashboard.providers.deleteProvider", compact('provider'))}}>Confirmar eliminar proveedor</a>
+
 @endsection

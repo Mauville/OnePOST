@@ -6,6 +6,15 @@
             <p class="title is-1">Agregar Trabajo</p>
         </div>
     </div>
+    @if ($errors->any())
+    <div class="notification is-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
 
     <form method="post" action={{ route("dashboard.works.postWork") }} enctype="multipart/form-data">
         @csrf
@@ -17,11 +26,11 @@
         <i class="fas fa-upload"></i>
       </span>
       <span class="file-label">
-        Choose a file…
+        Escoge un imágen o video...
       </span>
     </span>
                 <span class="file-name">
-      No file uploaded
+      Sin archivo
     </span>
             </label>
         </div>
@@ -44,27 +53,16 @@
         <div class="field">
             <fieldset name="">
                 <label class="label">Publicar en:
-                    {{--        TODO Make these dynamic--}}
+                    @if (!$providers->isEmpty())
+                    @foreach($providers as $provider)
                     <label class="checkbox">
-                        <input type="checkbox" name="network[twitter]">
-                        Twitter
+                        <input type="checkbox" name="providersId[{{ $provider->id }}]">
+                        {{ $provider->type }} con: {{ $provider->username}}
                     </label>
-                    <label class="checkbox" disabled>
-                        <input type="checkbox" name="network[patreon]" disabled>
-                        Patreon
-                    </label>
-                    <label class="checkbox" disabled>
-                        <input type="checkbox" name="network[instagram]" disabled>
-                        Instagram
-                    </label>
-                    <label class="checkbox" disabled>
-                        <input type="checkbox" name="network[fantia]" disabled>
-                        Fantia
-                    </label>
-                    <label class="checkbox" disabled>
-                        <input type="checkbox" name="network[deviant]" disabled>
-                        DeviantArt
-                    </label>
+                    @endforeach
+                    @else
+                        Sin proveedores (Agrega un provedor desde Mis proveedores).
+                    @endif
                 </label>
             </fieldset>
         </div>

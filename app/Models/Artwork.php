@@ -45,9 +45,20 @@ class Artwork extends Model
     {
         $stats = [];
         foreach ($this->providers as $provider) {
-            $stats[$provider->type] = $provider->getPostStatistics($this);
+            $key = $provider->type . '@' . $provider->username;
+            $stats[$key] = $provider->getPostStatistics($this);
         }
         return $stats;
 
+    }
+
+    public function user() {
+        return $this->belongsTo(User::class, "userID");
+    }
+
+    public function movements()
+    {
+        return $this->hasMany(ArtworkMovement::class,
+            'artworkID');
     }
 }

@@ -14,29 +14,46 @@ class WorksController extends Controller
 {
     public function history()
     {
-        return view('works.history');
+        $artworks = Auth::user()->artworks;
+        return view('works.history', compact('artworks'));
     }
 
     public function postPage()
     {
-        return view('works.post');
+        $providers = Auth::user()->providers;
+        return view('works.post', compact('providers'));
     }
 
     public function postWork(Request $request)
     {
-        // Build artwork
+        $data = $request->validate([
+            'art' => 'required|mimes:jpg,png,gif,mp4',
+            'name' => 'required',
+            'description' => 'required',
+            'providersId' => 'required|array'
+        ]);
+        // Lookup networks to post to
+        $ids = array_keys($data['providersId']);
+
+        // Find if the user has artworks
+        $providers = Auth::user()->providers()->whereIn("id", $ids)->get();
+        if ($providers->isEmpty()) { 
+            return redirect()->route('dashboard.works.history');
+        }
+        
         $artwork = Artwork::fromRequest($request);
 
-        // Lookup networks to post to
-        $networks = array_keys($request->input("network"));
 
         // Mass Post
-        $providers = Auth::user()->providers()->whereIn("type", $networks)->get();
         foreach ($providers as $provider) {
             $provider->createPost($artwork);
         }
-        return view("works.history");
+        return redirect()->route('dashboard.works.history');
 
+    }
+
+    public function deleteConfirmation(Artwork $artwork) {
+        return view("works.deleteConfirmation", compact('artwork'));
     }
 
     /**
@@ -55,21 +72,31 @@ class WorksController extends Controller
      * Refer to post.blade.php's checkboxes fieldset to see how proper naming works.
      * uncomment line 1) and comment line 2) when the proper structure has been implemented on the view.
      */
-    public function deleteWork(Request $request)
+    public function deleteWork(Artwork $artwork, Request $request)
     {
 
 //        // 1)
 //        $networks = array_keys($request->input("network"));
         // 2)
-        $networks = $request->boolean('provider') ? "" : "twitter";
+        $data = $request->validate([
+            'providersId' => 'required|array',
+        ]);
 
-        $artwork = Artwork::find($request->artworkID);
-        $providers = Auth::user()->providers()->whereIn("type", $networks)->get();
+        // Lookup networks to post to
+        $ids = array_keys($data['providersId']);
+
+        // Find if the user has artworks
+        $providers = $artwork->providers()->whereIn("provider_id", $ids)->get();
         foreach ($providers as $provider) {
             $provider->deletePost($artwork);
         }
+        return redirect()->route('dashboard.works.history');
+    }
+
+    public function deletePermanently(Artwork $artwork)
+    {
         $artwork->delete();
-        return view("works.history");
+        return redirect()->route('dashboard.works.history');
     }
 }
 
