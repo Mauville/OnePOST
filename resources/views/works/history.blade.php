@@ -11,7 +11,7 @@
             <th>Fecha de difusión</th>
             <th>Fecha de modificación</th>
             <th>Descripción</th>
-            <th>Stats</th>
+            <th>Estadísticas</th>
             <th>Acciones</th>
         </tr>
         </thead>

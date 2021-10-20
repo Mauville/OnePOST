@@ -20,7 +20,6 @@
         </ul>
     </div>
     @endif
-    @php($artworks = $provider->artworks)
     @if (!$artworks->isEmpty())
     <table class="table has-text-centered is-fullwidth is-narrow is-striped is-hoverable">
         <thead>
@@ -30,7 +29,7 @@
             <th>Fecha de difusión</th>
             <th>Fecha de modificación</th>
             <th>Descripción</th>
-            <th>Stats</th>
+            <th>Estadísticas</th>
         </tr>
         </thead>
         <tbody>

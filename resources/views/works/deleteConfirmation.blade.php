@@ -23,7 +23,7 @@
             <th>Fecha de difusión</th>
             <th>Fecha de modificación</th>
             <th>Descripción</th>
-            <th>Stats</th>
+            <th>Estadísticas</th>
         </tr>
         </thead>
         <tbody>

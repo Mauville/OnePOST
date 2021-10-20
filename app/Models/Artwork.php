@@ -27,6 +27,17 @@ class Artwork extends Model
         return $artwork;
     }
 
+    public static function fromScheduled($scheduled): Artwork
+    {
+        $artwork = new Artwork();
+        $artwork->name = $scheduled->name;
+        $artwork->description = $scheduled->description;
+        $artwork->URI = $scheduled->URI;
+        $artwork->userID = $scheduled->userID;
+        $artwork->save();
+        return $artwork;
+    }
+
     public function providers()
     {
         return $this->belongsToMany(Provider::class);
