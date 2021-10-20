@@ -16,35 +16,12 @@ class Artwork extends Model
      * @return Artwork
      * @var mixed
      */
-    public static function fromRequest(Request $request): Artwork
-    {
-        $path = $request->file('art')->store('art');
-        $artwork = new Artwork();
-        $artwork->name = $request->name;
-        $artwork->description = $request->description;
-        $artwork->URI = $path;
-        $artwork->userID = Auth::user()->id;
-        $artwork->save();
-        return $artwork;
-    }
-
-    public static function fromScheduled(ScheduledWork $scheduled): Artwork
-    {
-        $artwork = new Artwork();
-        $artwork->name = $scheduled->name;
-        $artwork->description = $scheduled->description;
-        $artwork->URI = $scheduled->URI;
-        $artwork->userID = $scheduled->userID;
-        $artwork->save();
-        return $artwork;
-    }
-
-    public static function fromRepost(Request $request, Artwork $from_artwork): Artwork
+    public static function fromRequest($request, $uri): Artwork
     {
         $artwork = new Artwork();
         $artwork->name = $request->name;
         $artwork->description = $request->description;
-        $artwork->URI = $from_artwork->URI;
+        $artwork->URI = $uri;
         $artwork->userID = Auth::user()->id;
         $artwork->save();
         return $artwork;
