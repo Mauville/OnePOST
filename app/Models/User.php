@@ -53,4 +53,10 @@ class User extends Authenticatable
         return $this->hasMany(Artwork::class,
             'userID');
     }
+
+    public function scheduled()
+    {
+        return $this->hasMany(ScheduledWork::class,
+            'userID');
+    }
 }

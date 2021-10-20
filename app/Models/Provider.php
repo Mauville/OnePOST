@@ -116,6 +116,11 @@ class Provider extends Model
         return null;
     }
 
+    public function deleteScheduled(ScheduledWork $scheduled)
+    {
+        $scheduled->providers()->detach($this->id);
+    }
+
     private function twitterStatistics(Artwork $artwork)
     {
         $backend = new TwitterBackend($this->token, $this->token_secret);
@@ -134,6 +139,11 @@ class Provider extends Model
     public function artworks()
     {
         return $this->belongsToMany(Artwork::class);
+    }
+
+    public function scheduled_works()
+    {
+        return $this->belongsToMany(ScheduledWork::class);
     }
 
     public function user()
