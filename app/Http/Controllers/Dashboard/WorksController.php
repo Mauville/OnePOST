@@ -36,6 +36,9 @@ class WorksController extends Controller
             'time_scheduled' => 'date'
         ]);
 
+        // Save image
+        $path = $request->file('art')->store('art');
+
         // Lookup networks to post to
         $ids = array_keys($data['providersId']);
 
@@ -47,7 +50,7 @@ class WorksController extends Controller
 
         // Scheduling artworks instead of creating them
         if (isset($data['shouldSchedule'])) {
-            $scheduled = ScheduledWork::fromRequest($request);
+            $scheduled = ScheduledWork::fromRequest($request, $path);
             // We only create a relation into future providers posts.
             foreach ($providers as $provider) {
                 $scheduled->providers()->attach($provider->id);
@@ -56,7 +59,7 @@ class WorksController extends Controller
         }
         
         // Create artwork and mass post.
-        $artwork = Artwork::fromRequest($request);
+        $artwork = Artwork::fromRequest($request, $path);
         foreach ($providers as $provider) {
             $provider->createPost($artwork);
         }
@@ -92,7 +95,7 @@ class WorksController extends Controller
 
         // Scheduling artworks instead of creating them
         if (isset($data['shouldSchedule'])) {
-            $scheduled = ScheduledWork::fromRepost($request, $artwork);
+            $scheduled = ScheduledWork::fromRequest($request, $artwork->URI);
             // We only create a relation into future providers posts.
             foreach ($providers as $provider) {
                 $scheduled->providers()->attach($provider->id);
@@ -101,7 +104,7 @@ class WorksController extends Controller
         }
         
         // Create artwork and mass post.
-        $artwork = Artwork::fromRepost($request, $artwork);
+        $artwork = Artwork::fromRequest($request, $artwork->URI);
         foreach ($providers as $provider) {
             $provider->createPost($artwork);
         }

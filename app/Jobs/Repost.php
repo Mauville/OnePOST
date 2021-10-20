@@ -39,7 +39,7 @@ class Repost implements ShouldQueue
             $providers = $scheduled->providers;
 
             if (!$providers->isEmpty()) {
-                $artwork = Artwork::fromScheduled($scheduled);
+                $artwork = Artwork::fromRequest($scheduled, $scheduled->URI);
                 // Mass Post
                 foreach ($providers as $provider) {
                     $provider->createPost($artwork);

@@ -11,37 +11,12 @@ class ScheduledWork extends Model
 {
     use HasFactory;
 
-    public static function fromRequest(Request $request): ScheduledWork
-    {
-        $path = $request->file('art')->store('art');
-        $scheduled = new ScheduledWork();
-        $scheduled->name = $request->name;
-        $scheduled->description = $request->description;
-        $scheduled->URI = $path;
-        $scheduled->userID = Auth::user()->id;
-        $scheduled->time_scheduled = $request->time_scheduled;
-        $scheduled->save();
-        return $scheduled;
-    }
-
-    public static function fromRepost(Request $request, Artwork $from_artwork): ScheduledWork
+    public static function fromRequest($request, $uri): ScheduledWork
     {
         $scheduled = new ScheduledWork();
         $scheduled->name = $request->name;
         $scheduled->description = $request->description;
-        $scheduled->URI = $from_artwork->URI;
-        $scheduled->userID = Auth::user()->id;
-        $scheduled->time_scheduled = $request->time_scheduled;
-        $scheduled->save();
-        return $scheduled;
-    }
-
-    public static function fromRescheduled(Request $request, ScheduledWork $from_scheduled): ScheduledWork
-    {
-        $scheduled = new ScheduledWork();
-        $scheduled->name = $request->name;
-        $scheduled->description = $request->description;
-        $scheduled->URI = $from_scheduled->URI;
+        $scheduled->URI = $uri;
         $scheduled->userID = Auth::user()->id;
         $scheduled->time_scheduled = $request->time_scheduled;
         $scheduled->save();

@@ -43,7 +43,7 @@ class ScheduledController extends Controller
         }
 
         // Scheduling artworks instead of creating them
-        $new_scheduled = ScheduledWork::fromRescheduled($request, $scheduled);
+        $new_scheduled = ScheduledWork::fromRequest($request, $scheduled->URI);
         // We only create a relation into future providers posts.
         foreach ($providers as $provider) {
             $new_scheduled->providers()->attach($provider->id);
