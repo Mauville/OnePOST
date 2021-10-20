@@ -39,7 +39,7 @@
                 <ul>
                 @php ($all_stats = $artwork->getStatistics())
                 @if (!$all_stats)
-                No hay proveedores conectados
+                Sin conexión a un proveedor.
                 @endif
                 @foreach($all_stats as $provider => $stats)
                     <li>En {{ $provider }}</li>
@@ -75,9 +75,9 @@
         </div>
     </form>
     
-    <div class="section is-flex is-align-items-center">
+    <div class="mt-6 mb-6 is-flex is-align-items-center">
         <div class="block mr-4">
-            <p>Eliminar de la plataforma sin eliminar de sus proveedores, es un cambio permanente</p>
+            <p>Eliminar de la plataforma sin eliminar de sus proveedores, es un cambio permanente.</p>
         </div>
         <div class="block">
             <a class="button is-danger" href={{ route("dashboard.works.deletePermanently", compact('artwork')) }} >Eliminar proveedor de la plataforma</a>

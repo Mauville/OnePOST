@@ -29,7 +29,7 @@
                 <ul>
                 @php ($all_stats = $artwork->getStatistics())
                 @if (!$all_stats)
-                No hay proveedores conectados
+                Sin conexión a un proveedor.
                 @endif
                 @foreach($all_stats as $provider => $stats)
                     <li>En {{ $provider }}</li>

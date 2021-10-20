@@ -6,6 +6,11 @@
             <p class="title is-1">Eliminar Proveedor: {{ $provider->type }} con {{ $provider->username }}</p>
         </div>
     </div>
+    <div class="columns">
+        <div class="column">
+            <p class="subtitle is-4">Trabajos difundidos con este proveedor</p>
+        </div>
+    </div>
     @if ($errors->any())
     <div class="notification is-danger">
         <ul>

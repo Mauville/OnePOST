@@ -53,13 +53,16 @@
         <div class="field">
             <fieldset name="">
                 <label class="label">Publicar en:
-                    {{--        TODO Make these dynamic--}}
+                    @if (!$providers->isEmpty())
                     @foreach($providers as $provider)
                     <label class="checkbox">
                         <input type="checkbox" name="providersId[{{ $provider->id }}]">
                         {{ $provider->type }} con: {{ $provider->username}}
                     </label>
                     @endforeach
+                    @else
+                        Sin proveedores (Agrega un provedor desde Mis proveedores).
+                    @endif
                 </label>
             </fieldset>
         </div>

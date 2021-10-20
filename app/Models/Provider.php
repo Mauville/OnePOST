@@ -13,6 +13,8 @@ class Provider extends Model
 
     public static function addProvider($access_token, $type) {
         $username = $access_token["screen_name"];
+
+        // Find if provider already exists.
         $p = Provider::where('type', $type)->where('username', $username)->first();
         if ($p) {
             $p->token = $access_token["oauth_token"];
@@ -20,6 +22,8 @@ class Provider extends Model
             $p->save();
             return;
         }
+
+        // If not create a new provider.
         $p = new Provider();
         $p->userID = Auth::user()->id;
         $p->type = "twitter";
@@ -27,6 +31,45 @@ class Provider extends Model
         $p->token_secret = $access_token["oauth_token_secret"];
         $p->username= $access_token["screen_name"];
         $p->save();
+
+        // Get the artworks related to this provider.
+        $provider_artworks = Provider::getProviderArtworks($p);
+
+        // If artwork with ID exists attach provider;
+        foreach ($provider_artworks as $provider_artwork) {
+            $provider_artwork->providers()->attach($p->id);
+        }
+    }
+
+    private static function getProviderArtworks(Provider $p) {
+        // Reconnect all previous artworks posted by this new provider.
+        $movements = ArtworkMovement::where('provider_name', $p->type)
+            ->where('username', $p->username)->get();
+        $artworks = [];
+        if (!$movements->isEmpty()) {
+            $last_id = $movements->first()->artworkID;
+            $last_movement = $movements->first();
+            foreach ($movements as $movement)
+            {
+                if ($last_id != $movement->artworkID)
+                {
+                    $last_id = $movement->artworkID;
+                    // Only add if artwork is still in platform.
+                    $artwork = Artwork::find($last_movement->artworkID);
+                    if ($artwork && $last_movement->type == 'UPLOAD')
+                    {
+                        array_push($artworks, $artwork);
+                    }
+                }
+                $last_movement = $movement;
+            }
+            $artwork = Artwork::find($last_movement->artworkID);
+            if ($artwork && $last_movement->type == 'UPLOAD')
+            {
+                array_push($artworks, $artwork);
+            }
+        }
+        return $artworks;
     }
 
     private function postTwitter(Artwork $artwork)
@@ -60,6 +103,12 @@ class Provider extends Model
 
     public function deletePost(Artwork $artwork)
     {
+        $movement = new ArtworkMovement;
+        $movement->type = "DELETE";
+        $movement->provider_name = $this->type;
+        $movement->username = $this->username;
+        $movement->artworkID = $artwork->id;
+        $movement->save();
         switch ($this->type) {
             case "twitter":
                 return $this->deleteTwitter($artwork);
