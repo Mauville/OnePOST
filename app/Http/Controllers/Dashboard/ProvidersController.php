@@ -21,7 +21,8 @@ class ProvidersController extends Controller
     }
 
     public function deleteConfirmation(Provider $provider) {
-        return view("providers.deleteConfirmation", compact('provider'));
+        $artworks = $provider->artworks->where("userID", Auth::user()->id);
+        return view("providers.deleteConfirmation", compact('provider', 'artworks'));
     }
 
     /**

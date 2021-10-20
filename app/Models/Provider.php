@@ -15,7 +15,7 @@ class Provider extends Model
         $username = $access_token["screen_name"];
 
         // Find if provider already exists.
-        $p = Provider::where('type', $type)->where('username', $username)->first();
+        $p = Auth::user()->providers->where('type', $type)->where('username', $username)->first();
         if ($p) {
             $p->token = $access_token["oauth_token"];
             $p->token_secret = $access_token["oauth_token_secret"];

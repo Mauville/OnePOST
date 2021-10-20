@@ -61,7 +61,7 @@
         </div>
 
         <div class="control">
-            <button type="submit" class="button is-primary">Submit</button>
+            <button type="submit" class="button is-primary">Cambiar Agenda</button>
         </div>
 
         {{--        This script adds the filename of an uploaded object. --}}
