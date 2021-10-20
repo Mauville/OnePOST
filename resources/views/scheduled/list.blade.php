@@ -28,7 +28,7 @@
             <td class="is-vcentered">{{ $scheduled->time_scheduled }}</td>
             <td class="is-vcentered">
                 <div class="buttons">
-                  <button class="button is-success is-fullwidth">Cambiar</button>
+                  <a class="button is-success is-fullwidth" href="{{ route('dashboard.scheduled.change', compact('scheduled')) }}">Cambiar</a>
                   <a class="button is-danger is-fullwidth" href="{{ route('dashboard.scheduled.deleteConfirmation', compact('scheduled')) }}">Eliminar</a>
                 </div>
             </td>

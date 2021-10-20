@@ -36,6 +36,18 @@ class ScheduledWork extends Model
         return $scheduled;
     }
 
+    public static function fromRescheduled(Request $request, ScheduledWork $from_scheduled): ScheduledWork
+    {
+        $scheduled = new ScheduledWork();
+        $scheduled->name = $request->name;
+        $scheduled->description = $request->description;
+        $scheduled->URI = $from_scheduled->URI;
+        $scheduled->userID = Auth::user()->id;
+        $scheduled->time_scheduled = $request->time_scheduled;
+        $scheduled->save();
+        return $scheduled;
+    }
+
     public function providers()
     {
         return $this->belongsToMany(Provider::class);
