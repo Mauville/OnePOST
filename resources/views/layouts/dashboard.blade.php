@@ -41,6 +41,9 @@
                         <a class="navbar-item" href="{{ route('dashboard.providers.show') }}">
                             Mis proveedores
                         </a>
+                        <a class="navbar-item" href="{{ route('dashboard.scheduled.show') }}">
+                            Trabajos agendados
+                        </a>
                         <a class="navbar-item" href="{{ route('dashboard.works.post') }}">
                            Difundir trabajo
                         </a>
@@ -71,6 +74,7 @@
                                         {{ request()->route()->getName() === 'dashboard.providers.show' ? 'Administra tus cuentas de redes sociales' : '' }}
                                         {{ request()->route()->getName() === 'dashboard.providers.register' ? 'Agrega una nueva red social' : '' }}
                                         {{ request()->route()->getName() === 'dashboard.works.post' ? 'Difunde tus trabajo en tus redes' : '' }}
+                                        {{ request()->route()->getName() === 'dashboard.scheduled.show' ? 'Administra tus trabajos agendados' : '' }}
                                     </h2>
                                 </div>
                             </div>
@@ -82,6 +86,7 @@
                             <li><a {{ request()->route()->getName() === 'dashboard.works.history' ? ' class=is-active' : '' }} href="{{ route('dashboard.works.history') }}">Mis trabajos</a></li>
                             <li><a {{ request()->route()->getName() === 'dashboard.providers.show' ? ' class=is-active' : '' }} href="{{ route('dashboard.providers.show') }}">Mis proveedores</a></li>
                             <li><a {{ request()->route()->getName() === 'dashboard.works.post' ? ' class=is-active' : '' }} href="{{ route('dashboard.works.post') }}">Difundir trabajo</a></li>
+                            <li><a {{ request()->route()->getName() === 'dashboard.scheduled.show' ? ' class=is-active' : '' }} href="{{ route('dashboard.scheduled.show') }}">Trabajos agendados</a></li>
                         </ul>
                         <!--
                         <p class="menu-label">

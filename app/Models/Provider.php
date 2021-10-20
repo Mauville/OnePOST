@@ -136,6 +136,11 @@ class Provider extends Model
         return $this->belongsToMany(Artwork::class);
     }
 
+    public function scheduled_works()
+    {
+        return $this->belongsToMany(ScheduledWork::class);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class, "userID");

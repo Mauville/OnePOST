@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\Artwork;
+use App\Models\ScheduledWork;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -30,8 +31,11 @@ class WorksController extends Controller
             'art' => 'required|mimes:jpg,png,gif,mp4',
             'name' => 'required',
             'description' => 'required',
-            'providersId' => 'required|array'
+            'providersId' => 'required|array',
+            'shouldSchedule' => 'numeric',
+            'time_scheduled' => 'date'
         ]);
+
         // Lookup networks to post to
         $ids = array_keys($data['providersId']);
 
@@ -40,14 +44,23 @@ class WorksController extends Controller
         if ($providers->isEmpty()) { 
             return redirect()->route('dashboard.works.history');
         }
+
+        // Scheduling artworks instead of creating them
+        if (isset($data['shouldSchedule'])) {
+            $scheduled = ScheduledWork::fromRequest($request);
+            // We only create a relation into future providers posts.
+            foreach ($providers as $provider) {
+                $scheduled->providers()->attach($provider->id);
+            }
+            return redirect()->route('dashboard.works.history');
+        }
         
+        // Create artwork and mass post.
         $artwork = Artwork::fromRequest($request);
-
-
-        // Mass Post
         foreach ($providers as $provider) {
             $provider->createPost($artwork);
         }
+
         return redirect()->route('dashboard.works.history');
 
     }

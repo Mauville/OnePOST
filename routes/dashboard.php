@@ -23,3 +23,11 @@ Route::group([
     Route::post('delete/{artwork}', 'WorksController@deleteWork')->name('works.deleteWork');
     Route::get('delete/{artwork}/permanently', 'WorksController@deletePermanently')->name('works.deletePermanently');
 });
+
+Route::group([
+    'prefix' => 'scheduled',
+], function () {
+    Route::get('', 'ScheduledController@showScheduled')->name('scheduled.show');
+    Route::get('delete/{scheduled}/ask', 'ScheduledController@deleteConfirmation')->name('scheduled.deleteConfirmation');
+    Route::get('delete/{scheduled}', 'ScheduledController@deleteScheduled')->name('scheduled.deleteScheduled');
+});

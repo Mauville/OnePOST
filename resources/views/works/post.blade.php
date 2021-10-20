@@ -66,6 +66,22 @@
                 </label>
             </fieldset>
         </div>
+        <div class="field">
+            <fieldset name="">
+                <label class="label checkbox">
+                    Agendar trabajo
+                    <input type="checkbox" name="shouldSchedule" value="1">
+                </label>
+            </fieldset>
+        </div>
+        <div class="field">
+            <div class="control">
+                <label class="label">En fecha y hora
+                    @php($now = Carbon\Carbon::now()->addMinutes(2)->toDateTimeString());
+                    <input class="input" type="datetime-local" name="time_scheduled" min="{{ $now }}" value="{{ $now }}">
+                </label>
+            </div>
+        </div>
 
         <div class="control">
             <button type="submit" class="button is-primary">Submit</button>
