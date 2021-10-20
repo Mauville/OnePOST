@@ -52,7 +52,7 @@ class WorksController extends Controller
             foreach ($providers as $provider) {
                 $scheduled->providers()->attach($provider->id);
             }
-            return redirect()->route('dashboard.works.history');
+            return redirect()->route('dashboard.scheduled.show');
         }
         
         // Create artwork and mass post.

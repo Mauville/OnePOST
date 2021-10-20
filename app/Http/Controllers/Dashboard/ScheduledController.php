@@ -22,32 +22,10 @@ class ScheduledController extends Controller
         return view("scheduled.deleteConfirmation", compact('scheduled'));
     }
 
-    /**
-     * @param Request $request
-     * @return Application|Factory|View
-     *
-     */
-    public function deleteScheduled(ScheduledWork $scheduled, Request $request)
+    public function deletePermanently(ScheduledWork $scheduled)
     {
-        $data = $request->validate([
-            'providersId' => 'required|array',
-        ]);
-
-        // Lookup networks to post to
-        $ids = array_keys($data['providersId']);
-
-        // Find if the user has artworks
-        $providers = $artwork->providers()->whereIn("provider_id", $ids)->get();
-        foreach ($providers as $provider) {
-            $provider->deletePost($artwork);
-        }
-        return redirect()->route('dashboard.works.history');
-    }
-
-    public function deletePermanently(Artwork $artwork)
-    {
-        $artwork->delete();
-        return redirect()->route('dashboard.works.history');
+        $scheduled->delete();
+        return redirect()->route('dashboard.scheduled.show');
     }
 }
 

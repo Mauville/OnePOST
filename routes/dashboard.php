@@ -29,5 +29,5 @@ Route::group([
 ], function () {
     Route::get('', 'ScheduledController@showScheduled')->name('scheduled.show');
     Route::get('delete/{scheduled}/ask', 'ScheduledController@deleteConfirmation')->name('scheduled.deleteConfirmation');
-    Route::get('delete/{scheduled}', 'ScheduledController@deleteScheduled')->name('scheduled.deleteScheduled');
+    Route::get('delete/{scheduled}/permanently', 'ScheduledController@deletePermanently')->name('scheduled.deletePermanently');
 });

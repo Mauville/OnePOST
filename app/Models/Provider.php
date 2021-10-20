@@ -116,6 +116,11 @@ class Provider extends Model
         return null;
     }
 
+    public function deleteScheduled(ScheduledWork $scheduled)
+    {
+        $scheduled->providers()->detach($this->id);
+    }
+
     private function twitterStatistics(Artwork $artwork)
     {
         $backend = new TwitterBackend($this->token, $this->token_secret);
