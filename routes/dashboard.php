@@ -19,6 +19,8 @@ Route::group([
     Route::get('history', 'WorksController@history')->name('works.history');
     Route::get('post', 'WorksController@postPage')->name('works.post');
     Route::post('post', 'WorksController@postWork')->name('works.postWork');
+    Route::get('repost/{artwork}', 'WorksController@repostPage')->name('works.repost');
+    Route::post('repost/{artwork}', 'WorksController@repostWork')->name('works.repostWork');
     Route::get('delete/{artwork}/ask', 'WorksController@deleteConfirmation')->name('works.deleteConfirmation');
     Route::post('delete/{artwork}', 'WorksController@deleteWork')->name('works.deleteWork');
     Route::get('delete/{artwork}/permanently', 'WorksController@deletePermanently')->name('works.deletePermanently');

@@ -30,13 +30,22 @@ class Artwork extends Model
 
     public static function fromScheduled(ScheduledWork $scheduled): Artwork
     {
-        // TODO: Do this on scheduled instead.
-        // $path = $scheduled->file('art')->store('art');
         $artwork = new Artwork();
         $artwork->name = $scheduled->name;
         $artwork->description = $scheduled->description;
         $artwork->URI = $scheduled->URI;
         $artwork->userID = $scheduled->userID;
+        $artwork->save();
+        return $artwork;
+    }
+
+    public static function fromRepost(Request $request, Artwork $from_artwork): Artwork
+    {
+        $artwork = new Artwork();
+        $artwork->name = $request->name;
+        $artwork->description = $request->description;
+        $artwork->URI = $from_artwork->URI;
+        $artwork->userID = Auth::user()->id;
         $artwork->save();
         return $artwork;
     }

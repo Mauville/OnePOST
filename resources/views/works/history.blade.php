@@ -40,7 +40,7 @@
             </td>
             <td class="is-vcentered">
                 <div class="buttons">
-                  <button class="button is-success is-fullwidth">Redifundir</button>
+                  <a class="button is-success is-fullwidth" href="{{ route('dashboard.works.repost', compact('artwork')) }}">Redifundir</a>
                   <a class="button is-danger is-fullwidth" href="{{ route('dashboard.works.deleteConfirmation', compact('artwork')) }}">Eliminar</a>
                 </div>
             </td>
