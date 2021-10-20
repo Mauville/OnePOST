@@ -18,6 +18,42 @@ class ScheduledController extends Controller
         return view('scheduled.list', compact('scheduled_works'));
     }
 
+    public function changePage(ScheduledWork $scheduled)
+    {
+        $providers = Auth::user()->providers;
+        return view('scheduled.change', compact('providers', 'scheduled'));
+    }
+
+    public function changeScheduled(Request $request, ScheduledWork $scheduled)
+    {
+        $data = $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'providersId' => 'required|array',
+            'time_scheduled' => 'required|date'
+        ]);
+
+        // Lookup networks to post to
+        $ids = array_keys($data['providersId']);
+
+        // Find if the user has artworks
+        $providers = Auth::user()->providers()->whereIn("id", $ids)->get();
+        if ($providers->isEmpty()) { 
+            return redirect()->route('dashboard.scheduled.show');
+        }
+
+        // Scheduling artworks instead of creating them
+        $new_scheduled = ScheduledWork::fromRescheduled($request, $scheduled);
+        // We only create a relation into future providers posts.
+        foreach ($providers as $provider) {
+            $new_scheduled->providers()->attach($provider->id);
+        }
+
+        // Drop previous scheduled after changes saved in new.
+        $scheduled->delete();
+        return redirect()->route('dashboard.scheduled.show');
+    }
+
     public function deleteConfirmation(ScheduledWork $scheduled) {
         return view("scheduled.deleteConfirmation", compact('scheduled'));
     }

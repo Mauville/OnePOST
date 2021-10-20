@@ -32,4 +32,6 @@ Route::group([
     Route::get('', 'ScheduledController@showScheduled')->name('scheduled.show');
     Route::get('delete/{scheduled}/ask', 'ScheduledController@deleteConfirmation')->name('scheduled.deleteConfirmation');
     Route::get('delete/{scheduled}/permanently', 'ScheduledController@deletePermanently')->name('scheduled.deletePermanently');
+    Route::get('change/{scheduled}', 'ScheduledController@changePage')->name('scheduled.change');
+    Route::post('change/{scheduled}', 'ScheduledController@changeScheduled')->name('scheduled.changeScheduled');
 });
