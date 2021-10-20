@@ -65,6 +65,51 @@ class WorksController extends Controller
 
     }
 
+    public function repostPage(Artwork $artwork)
+    {
+        $providers = Auth::user()->providers;
+        return view('works.repost', compact('artwork', 'providers'));
+    }
+
+    public function repostWork(Request $request, Artwork $artwork)
+    {
+        $data = $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'providersId' => 'required|array',
+            'shouldSchedule' => 'numeric',
+            'time_scheduled' => 'date'
+        ]);
+
+        // Lookup networks to post to
+        $ids = array_keys($data['providersId']);
+
+        // Find if the user has artworks
+        $providers = Auth::user()->providers()->whereIn("id", $ids)->get();
+        if ($providers->isEmpty()) { 
+            return redirect()->route('dashboard.works.history');
+        }
+
+        // Scheduling artworks instead of creating them
+        if (isset($data['shouldSchedule'])) {
+            $scheduled = ScheduledWork::fromRepost($request, $artwork);
+            // We only create a relation into future providers posts.
+            foreach ($providers as $provider) {
+                $scheduled->providers()->attach($provider->id);
+            }
+            return redirect()->route('dashboard.scheduled.show');
+        }
+        
+        // Create artwork and mass post.
+        $artwork = Artwork::fromRepost($request, $artwork);
+        foreach ($providers as $provider) {
+            $provider->createPost($artwork);
+        }
+
+        return redirect()->route('dashboard.works.history');
+
+    }
+
     public function deleteConfirmation(Artwork $artwork) {
         return view("works.deleteConfirmation", compact('artwork'));
     }
