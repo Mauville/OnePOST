@@ -32,8 +32,6 @@ class Repost implements ShouldQueue
     public function handle()
     {
         $scheduleds = ScheduledWork::whereDate('time_scheduled', '<=', Carbon::now())->get();
-        dd(ScheduledWork::all());
-        dd($scheduleds);
         foreach ($scheduleds as $scheduled) {
             // Sacer providers
             $providers = $scheduled->providers;
