@@ -124,7 +124,11 @@ class Provider extends Model
     private function twitterStatistics(Artwork $artwork)
     {
         $backend = new TwitterBackend($this->token, $this->token_secret);
-        return $backend->getStatistics($artwork);
+        $fulfilled = $backend->getStatistics($artwork);
+        if (!($fulfilled)) {
+            $artwork->providers()->detach($this->id);
+        }
+        return $fulfilled;
     }
 
     public function getPostStatistics(Artwork $artwork)

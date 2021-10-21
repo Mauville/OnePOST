@@ -46,10 +46,13 @@ class TwitterBackend implements SocialBackend
     public function getStatistics(Artwork $artwork)
     {
         $results = $this->connection->get("statuses/lookup", ["id" => $artwork->twitter_post_id], true);
-        $stat = [];
-        $stat["retweet_count"] = $results[0]->retweet_count;
-        $stat["favorite_count"] = $results[0]->favorite_count;
-        return $stat;
+        if ($this->connection->getLastHttpCode() == 200 and !(empty($results))) {
+            $stat = [];
+            $stat["retweet_count"] = $results[0]->retweet_count;
+            $stat["favorite_count"] = $results[0]->favorite_count;
+            return $stat;
+        }
+        return null;
     }
 
     public function refreshToken()
@@ -61,10 +64,13 @@ class TwitterBackend implements SocialBackend
     public function deletePost(Artwork $artwork)
     {
         $result = $this->connection->post("statuses/destroy/" . $artwork->twitter_post_id, [], true);
-        $artwork->twitter_media_id = null;
-        $artwork->twitter_post_id = null;
-        $artwork->published_to = null;
-        return $result;
+        if ($this->connection->getLastHttpCode() == 200) {
+            $artwork->twitter_media_id = null;
+            $artwork->twitter_post_id = null;
+            $artwork->published_to = null;
+            return true;
+        }
+        return false;
 
     }
 }

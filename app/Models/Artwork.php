@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class Artwork extends Model
@@ -57,6 +56,9 @@ class Artwork extends Model
         foreach ($this->providers as $provider) {
             $key = $provider->type . '@' . $provider->username;
             $stats[$key] = $provider->getPostStatistics($this);
+        }
+        if (empty($stats)) {
+            return false;
         }
         return $stats;
 

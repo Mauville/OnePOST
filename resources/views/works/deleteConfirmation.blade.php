@@ -28,8 +28,9 @@
         </thead>
         <tbody>
         <tr>
-            <th class="is-vcentered"><figure class="image is-32x32">
-                <img src="{{ asset($artwork->URI) }}"></figure>
+            <th class="is-vcentered">
+                <figure class="image is-32x32">
+                    <img src="{{ asset($artwork->URI) }}"></figure>
             </th>
             <td class="is-vcentered">{{ $artwork->name }}</td>
             <td class="is-vcentered">{{ $artwork->created_at->format('j F Y') }}</td>
@@ -37,22 +38,26 @@
             <td class="is-vcentered">{{ $artwork->description }}</td>
             <td class="is-vcentered">
                 <ul>
-                @php ($all_stats = $artwork->getStatistics())
-                @if (!$all_stats)
-                Sin conexión a un proveedor.
-                @endif
-                @foreach($all_stats as $provider => $stats)
-                    <li>En {{ $provider }}</li>
-                    <li>Retweets: {{ $stats["retweet_count"] }}</li>
-                    <li>Favoritos: {{ $stats["favorite_count"] }}</li>
-                @endforeach
+                    @php ($all_stats = $artwork->getStatistics())
+                    @if (!$all_stats)
+                        Sin conexión a un proveedor.
+                    @else
+                        @foreach($all_stats as $provider => $stats)
+                            @if ($stats)
+                                <li>En {{ $provider }}</li>
+                                <li>Retweets: {{ $stats["retweet_count"] }}</li>
+                                <li>Favoritos: {{ $stats["favorite_count"] }}</li>
+                            @endif
+                        @endforeach
+                    @endif
                 </ul>
             </td>
         </tr>
-    </tbody>
-</table>
+        </tbody>
+    </table>
     @php($providers = $artwork->providers)
-    <form method="post" action={{ route("dashboard.works.deleteWork", compact('artwork')) }} enctype="multipart/form-data">
+    <form method="post"
+          action={{ route("dashboard.works.deleteWork", compact('artwork')) }} enctype="multipart/form-data">
         <div class="field">
             <fieldset name="">
                 <label class="label">Eliminar de:
@@ -71,16 +76,19 @@
         </div>
         @csrf
         <div class="control">
-            <button type="submit" class="button is-danger" {{ ($providers->isEmpty()) ? 'disabled' : '' }}>Confirmar eliminar</button>
+            <button type="submit" class="button is-danger" {{ ($providers->isEmpty()) ? 'disabled' : '' }}>Confirmar
+                eliminar
+            </button>
         </div>
     </form>
-    
+
     <div class="mt-6 mb-6 is-flex is-align-items-center">
         <div class="block mr-4">
             <p>Eliminar de la plataforma sin eliminar de sus proveedores, es un cambio permanente.</p>
         </div>
         <div class="block">
-            <a class="button is-danger" href={{ route("dashboard.works.deletePermanently", compact('artwork')) }} >Eliminar proveedor de la plataforma</a>
+            <a class="button is-danger" href={{ route("dashboard.works.deletePermanently", compact('artwork')) }} >Eliminar
+                trabajo de la plataforma</a>
         </div>
     </div>
 
