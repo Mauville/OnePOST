@@ -27,21 +27,26 @@
             <td class="is-vcentered">{{ $artwork->description }}</td>
             <td class="is-vcentered">
                 <ul>
-                @php ($all_stats = $artwork->getStatistics())
-                @if (!$all_stats)
-                Sin conexión a un proveedor.
-                @endif
-                @foreach($all_stats as $provider => $stats)
-                    <li>En {{ $provider }}</li>
-                    <li>Retweets: {{ $stats["retweet_count"] }}</li>
-                    <li>Favoritos: {{ $stats["favorite_count"] }}</li>
-                @endforeach
+                    @php ($all_stats = $artwork->getStatistics())
+                    @if (!$all_stats)
+                        Sin conexión a un proveedor.
+                    @else
+                        @foreach($all_stats as $provider => $stats)
+                            @if ($stats)
+                                <li>En {{ $provider }}</li>
+                                <li>Retweets: {{ $stats["retweet_count"] }}</li>
+                                <li>Favoritos: {{ $stats["favorite_count"] }}</li>
+                            @endif
+                        @endforeach
+                    @endif
                 </ul>
             </td>
             <td class="is-vcentered">
                 <div class="buttons">
-                  <a class="button is-success is-fullwidth" href="{{ route('dashboard.works.repost', compact('artwork')) }}">Redifundir</a>
-                  <a class="button is-danger is-fullwidth" href="{{ route('dashboard.works.deleteConfirmation', compact('artwork')) }}">Eliminar</a>
+                    <a class="button is-success is-fullwidth"
+                       href="{{ route('dashboard.works.repost', compact('artwork')) }}">Redifundir</a>
+                    <a class="button is-danger is-fullwidth"
+                       href="{{ route('dashboard.works.deleteConfirmation', compact('artwork')) }}">Eliminar</a>
                 </div>
             </td>
         </tr>

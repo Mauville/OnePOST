@@ -2,16 +2,14 @@
 
 namespace App\Jobs;
 
+use App\Models\Artwork;
+use App\Models\ScheduledWork;
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Auth;
-use Carbon\Carbon;
-use App\Models\Artwork;
-use App\Models\ScheduledWork;
 
 class Repost implements ShouldQueue
 {
@@ -34,6 +32,8 @@ class Repost implements ShouldQueue
     public function handle()
     {
         $scheduleds = ScheduledWork::whereDate('time_scheduled', '<=', Carbon::now())->get();
+        dd(ScheduledWork::all());
+        dd($scheduleds);
         foreach ($scheduleds as $scheduled) {
             // Sacer providers
             $providers = $scheduled->providers;
