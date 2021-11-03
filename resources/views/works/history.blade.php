@@ -1,6 +1,24 @@
 @extends('layouts.dashboard')
 @section('content')
+@if ($errors->any())
+<div class="notification is-danger">
+    <ul>
+        @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+</div>
+@endif
 <p class="title is-1">Mis trabajos</p>
+    <form class="field has-addons" method="post" action={{ route("dashboard.works.searchWork") }} enctype="multipart/form-data">
+        @csrf
+        <p class="control">
+          <input class="input" type="text" name="searchField" placeholder="Encuentra trabajo por nombre">
+        </p>
+        <p class="control">
+            <button type="submit" class="button is-primary">Buscar</button>
+        </p>
+    </form>
 <div class="table-container">
     @if (!$artworks->isEmpty())
     <table class="table has-text-centered is-fullwidth is-narrow is-striped is-hoverable">

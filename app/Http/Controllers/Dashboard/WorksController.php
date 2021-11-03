@@ -25,6 +25,17 @@ class WorksController extends Controller
         return view('works.post', compact('providers'));
     }
 
+    public function searchWork(Request $request)
+    {
+        $data = $request->validate([
+            'searchField' => 'required'
+        ]);
+
+        $searchField = $data['searchField'];
+        $artworks = Artwork::where('name', 'like', $searchField . '%')->get();
+        return view('works.history', compact('artworks'));
+    }
+
     public function postWork(Request $request)
     {
         $data = $request->validate([
