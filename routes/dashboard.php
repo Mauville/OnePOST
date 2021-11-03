@@ -21,6 +21,8 @@ Route::group([
     Route::post('post', 'WorksController@postWork')->name('works.postWork');
     Route::get('search', 'WorksController@history')->name('works.showsearch');
     Route::post('search', 'WorksController@searchWork')->name('works.searchWork');
+    Route::get('sort', 'WorksController@history')->name('works.showSort');
+    Route::post('sort', 'WorksController@sortWorks')->name('works.sortWorks');
     Route::get('repost/{artwork}', 'WorksController@repostPage')->name('works.repost');
     Route::post('repost/{artwork}', 'WorksController@repostWork')->name('works.repostWork');
     Route::get('delete/{artwork}/ask', 'WorksController@deleteConfirmation')->name('works.deleteConfirmation');
