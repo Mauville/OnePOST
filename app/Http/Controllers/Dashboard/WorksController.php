@@ -32,8 +32,32 @@ class WorksController extends Controller
         ]);
 
         $searchField = $data['searchField'];
-        $artworks = Artwork::where('name', 'like', $searchField . '%')->get();
+        $artworks = Auth::user()->artworks()->where('name', 'like', $searchField . '%')->get();
         return view('works.history', compact('artworks'));
+    }
+
+    public function sortWorks(Request $request)
+    {
+        $data = $request->validate([
+            'sortBy' => 'required'
+        ]);
+
+        $sortBy = $data['sortBy'];
+
+        switch ($sortBy) {
+        case 'stats':
+            break;
+        case 'dateCreated':
+            $artworks = Auth::user()->artworks()->orderBy('created_at')->get();
+            return view('works.history', compact('artworks'));
+            break;
+        case 'name':
+            $artworks = Auth::user()->artworks()->orderBy('name')->get();
+            return view('works.history', compact('artworks'));
+            break;
+        default:
+            return redirect()->route('dashboard.works.history');
+        }
     }
 
     public function postWork(Request $request)

@@ -10,15 +10,35 @@
 </div>
 @endif
 <p class="title is-1">Mis trabajos</p>
-    <form class="field has-addons" method="post" action={{ route("dashboard.works.searchWork") }} enctype="multipart/form-data">
-        @csrf
-        <p class="control">
-          <input class="input" type="text" name="searchField" placeholder="Encuentra trabajo por nombre">
-        </p>
-        <p class="control">
-            <button type="submit" class="button is-primary">Buscar</button>
-        </p>
-    </form>
+<form class="field has-addons" method="post" action={{ route("dashboard.works.searchWork") }} enctype="multipart/form-data">
+    @csrf
+    <p class="control">
+      <input class="input" type="text" name="searchField" placeholder="Encuentra trabajo por nombre">
+    </p>
+    <p class="control">
+        <button type="submit" class="button is-primary">Buscar</button>
+    </p>
+</form>
+<form class="" method="post" action={{ route("dashboard.works.sortWorks") }} enctype="multipart/form-data">
+    @csrf
+    <div class="field">
+        <label class="label">
+            Ordenar por:
+            <div class="select is-primary is-small">
+              <select name="sortBy" id="sortBy">
+                <option value="stats">Por estad&iacute;sticas</option>
+                <option value="dateCreated">Por fecha de difusión</option>
+                <option value="name">Por nombre</option>
+              </select>
+            </div>
+        </label>
+    </div>
+    <div class="field">
+        <div class="control">
+            <button type="submit" class="button is-primary is-small">Ordenar</button>
+        </div>
+    </div>
+</form>
 <div class="table-container">
     @if (!$artworks->isEmpty())
     <table class="table has-text-centered is-fullwidth is-narrow is-striped is-hoverable">
