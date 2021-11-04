@@ -24,14 +24,20 @@
     <div class="field">
         <label class="label">
             Ordenar por:
-            <div class="select is-primary is-small">
-              <select name="sortBy" id="sortBy">
-                <option value="stats">Por estad&iacute;sticas</option>
-                <option value="dateCreated">Por fecha de difusión</option>
-                <option value="name">Por nombre</option>
-              </select>
-            </div>
         </label>
+        <div class="select is-primary is-small">
+          <select name="sortBy" id="sortBy">
+            <option value="stats">Por estad&iacute;sticas</option>
+            <option value="dateCreated">Por fecha de difusión</option>
+            <option value="name">Por nombre</option>
+          </select>
+        </div>
+        <div class="select is-primary is-small">
+          <select name="order" id="order">
+            <option value="desc">Descendiente</option>
+            <option value="asc">Ascendiente</option>
+          </select>
+        </div>
     </div>
     <div class="field">
         <div class="control">

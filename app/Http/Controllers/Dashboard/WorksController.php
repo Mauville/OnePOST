@@ -19,10 +19,27 @@ class WorksController extends Controller
     public function history()
     {
         $artworks = Auth::user()->artworks;
+
+        // Updates stats
         foreach ($artworks as $artwork)
         {
             $artwork->stats = $artwork->getStatistics();
+            // Hacer suma
+            $total = 0;
+            foreach ($artwork->stats as $stat)
+            {
+                $stat_sum = 0;
+                foreach($stat as $value)
+                {
+                    $stat_sum += $value;
+                }
+                $total += $stat_sum;
+            }
+            $artwork->totalstats = $total;
+            $artwork->save();
         }
+
+        // Hacer update
         return view('works.history', compact('artworks'));
     }
 
@@ -46,25 +63,31 @@ class WorksController extends Controller
     public function sortWorks(Request $request)
     {
         $data = $request->validate([
-            'sortBy' => 'required'
+            'sortBy' => 'required',
+            'order' => 'required'
         ]);
 
         $sortBy = $data['sortBy'];
+        $order = $data['order'];
 
         switch ($sortBy) {
         case 'stats':
+            $artworks = Auth::user()->artworks()->orderBy('totalstats', $order)->get();
             break;
         case 'dateCreated':
-            $artworks = Auth::user()->artworks()->orderBy('created_at')->get();
-            return view('works.history', compact('artworks'));
+            $artworks = Auth::user()->artworks()->orderBy('created_at', $order)->get();
             break;
         case 'name':
-            $artworks = Auth::user()->artworks()->orderBy('name')->get();
-            return view('works.history', compact('artworks'));
+            $artworks = Auth::user()->artworks()->orderBy('name', $order)->get();
             break;
         default:
             return redirect()->route('dashboard.works.history');
         }
+        foreach ($artworks as $artwork)
+        {
+            $artwork->stats = $artwork->getStatistics();
+        }
+        return view('works.history', compact('artworks'));
     }
 
     public function postWork(Request $request)
