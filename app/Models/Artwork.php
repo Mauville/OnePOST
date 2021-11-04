@@ -10,6 +10,8 @@ class Artwork extends Model
 {
     use HasFactory;
 
+    public $stats = [];
+
     /**
      *
      * @return Artwork

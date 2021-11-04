@@ -39,6 +39,7 @@
         </div>
     </div>
 </form>
+<a class="button is-danger is-small mt-2" href="{{ route('dashboard.works.export') }}">Export CSV</a>
 <div class="table-container">
     @if (!$artworks->isEmpty())
     <table class="table has-text-centered is-fullwidth is-narrow is-striped is-hoverable">
@@ -65,7 +66,7 @@
             <td class="is-vcentered">{{ $artwork->description }}</td>
             <td class="is-vcentered">
                 <ul>
-                    @php ($all_stats = $artwork->getStatistics())
+                    @php ($all_stats = $artwork->stats)
                     @if (!$all_stats)
                         Sin conexión a un proveedor.
                     @else
