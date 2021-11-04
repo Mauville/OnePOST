@@ -11,11 +11,18 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use App\Exports\ArtworkExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 class WorksController extends Controller
 {
     public function history()
     {
         $artworks = Auth::user()->artworks;
+        foreach ($artworks as $artwork)
+        {
+            $artwork->stats = $artwork->getStatistics();
+        }
         return view('works.history', compact('artworks'));
     }
 
@@ -193,6 +200,11 @@ class WorksController extends Controller
     {
         $artwork->delete();
         return redirect()->route('dashboard.works.history');
+    }
+
+    public function exportCsv()
+    {
+        return Excel::download(new ArtworkExport(Auth::user()), 'artworks.csv');
     }
 }
 

@@ -28,6 +28,7 @@ Route::group([
     Route::get('delete/{artwork}/ask', 'WorksController@deleteConfirmation')->name('works.deleteConfirmation');
     Route::post('delete/{artwork}', 'WorksController@deleteWork')->name('works.deleteWork');
     Route::get('delete/{artwork}/permanently', 'WorksController@deletePermanently')->name('works.deletePermanently');
+    Route::get('exportCsv', 'WorksController@exportCsv')->name('works.export');
 });
 
 Route::group([
