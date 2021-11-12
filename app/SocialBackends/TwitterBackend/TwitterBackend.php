@@ -25,14 +25,12 @@ class TwitterBackend implements SocialBackend
     {
         $path =storage_path("app\\public\\" . $artwork->URI);
         $path = str_replace("\\", "/", $path);
-        \Barryvdh\Debugbar\Facade::info($path);
         $media = $this->connection->upload('media/upload', ['media' => $path]);
         $parameters = [
             'status' => $artwork->description,
 //            'media_ids' => implode(',', [$media->media_id_string])
             'media_ids' => $media->media_id_string
         ];
-        \Barryvdh\Debugbar\Facade::info("Upload Successful");
         $response = $this->connection->post('statuses/update', $parameters);
 
         // Save response
