@@ -10,6 +10,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
 class Repost implements ShouldQueue
 {
@@ -32,6 +33,7 @@ class Repost implements ShouldQueue
     public function handle()
     {
         $scheduleds = ScheduledWork::whereDate('time_scheduled', '<=', Carbon::now())->get();
+        Log::info($scheduleds);
         foreach ($scheduleds as $scheduled) {
             // Sacer providers
             $providers = $scheduled->providers;

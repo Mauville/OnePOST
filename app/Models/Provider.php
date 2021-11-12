@@ -94,11 +94,8 @@ class Provider extends Model
         $movement->username = $this->username;
         $movement->artworkID = $artwork->id;
         $movement->save();
-        switch ($this->type) {
-            case "twitter":
-                return $this->postTwitter($artwork);
-        }
-        return null;
+        // ooga booga bug correction. Will not scale
+        return $this->postTwitter($artwork);
     }
 
     public function deletePost(Artwork $artwork)
