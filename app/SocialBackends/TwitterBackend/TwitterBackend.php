@@ -5,6 +5,7 @@ namespace App\SocialBackends\TwitterBackend;
 use Abraham\TwitterOAuth\TwitterOAuth;
 use App\Models\Artwork;
 use App\SocialBackends\SocialBackend;
+use Illuminate\Support\Facades\Log;
 
 class TwitterBackend implements SocialBackend
 {
@@ -25,6 +26,7 @@ class TwitterBackend implements SocialBackend
     {
         $path =storage_path("app\\public\\" . $artwork->URI);
         $path = str_replace("\\", "/", $path);
+        Log::alert("Posting media from:" . $path);
         $media = $this->connection->upload('media/upload', ['media' => $path]);
         $parameters = [
             'status' => $artwork->description,

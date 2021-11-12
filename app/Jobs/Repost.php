@@ -37,11 +37,11 @@ class Repost implements ShouldQueue
         foreach ($scheduleds as $scheduled) {
             // Sacer providers
             $providers = $scheduled->providers;
-
             if (!$providers->isEmpty()) {
                 $artwork = Artwork::fromScheduled($scheduled);
                 // Mass Post
                 foreach ($providers as $provider) {
+                    Log::info("Creating post with provider: ". $provider->type);
                     $provider->createPost($artwork);
                 }
             }

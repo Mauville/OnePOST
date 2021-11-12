@@ -109,7 +109,7 @@ class WorksController extends Controller
 
         // Find if the user has artworks
         $providers = Auth::user()->providers()->whereIn("id", $ids)->get();
-        if ($providers->isEmpty()) { 
+        if ($providers->isEmpty()) {
             return redirect()->route('dashboard.works.history');
         }
 
@@ -122,7 +122,7 @@ class WorksController extends Controller
             }
             return redirect()->route('dashboard.scheduled.show');
         }
-        
+
         // Create artwork and mass post.
         $artwork = Artwork::fromRequest($request, $path);
         foreach ($providers as $provider) {
@@ -154,7 +154,7 @@ class WorksController extends Controller
 
         // Find if the user has artworks
         $providers = Auth::user()->providers()->whereIn("id", $ids)->get();
-        if ($providers->isEmpty()) { 
+        if ($providers->isEmpty()) {
             return redirect()->route('dashboard.works.history');
         }
 
@@ -167,7 +167,7 @@ class WorksController extends Controller
             }
             return redirect()->route('dashboard.scheduled.show');
         }
-        
+
         // Create artwork and mass post.
         $artwork = Artwork::fromRequest($request, $artwork->URI);
         foreach ($providers as $provider) {
