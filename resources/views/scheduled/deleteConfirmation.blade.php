@@ -29,7 +29,7 @@
         <tbody>
         <tr>
             <th class="is-vcentered"><figure class="image is-32x32">
-                <img src="{{ asset($scheduled->URI) }}"></figure>
+                <img src="{{ asset('storage/'.$scheduled->URI) }}"></figure>
             </th>
             <td class="is-vcentered">{{ $scheduled->name }}</td>
             <td class="is-vcentered">{{ $scheduled->created_at->format('j F Y') }}</td>
