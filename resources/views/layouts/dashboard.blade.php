@@ -22,7 +22,7 @@
     <body>
          <!-- START NAV -->
         <nav class="navbar is-primary">
-            <div class="container">
+            <div class="container has-background-primary">
                 <div class="navbar-brand">
                     <a class="navbar-item brand-text" href="{{ route('homepage') }}">
                        OnePOST Dash
@@ -33,7 +33,7 @@
                         <span></span>
                     </div>
                 </div>
-                <div id="navMenu" class="navbar-menu">
+                <div id="navMenu" class="navbar-menu has-background-primary">
                     <div class="navbar-start is-hidden-tablet">
                         <a class="navbar-item" href="{{ route('dashboard.works.history') }}">
                             Mis trabajos
@@ -122,6 +122,34 @@
         </div>
         <script src="https://cdn.jsdelivr.net/npm/@coreui/coreui@4.0.0/dist/js/coreui.bundle.min.js" integrity="sha384-caJEC8fMoc6Q3cPepbgNz8nEv350Wy42/1qEtfZnUn6NGNTJWLkzCzXXz08CVs/B" crossorigin="anonymous"></script>
         @stack('scripts')
+        <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+          // Get all "navbar-burger" elements
+          const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+          // Check if there are any navbar burgers
+          if ($navbarBurgers.length > 0) {
+
+            // Add a click event on each of them
+            $navbarBurgers.forEach( el => {
+              el.addEventListener('click', () => {
+
+                // Get the target from the "data-target" attribute
+                const target = el.dataset.target;
+                const $target = document.getElementById(target);
+
+                // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+                el.classList.toggle('is-active');
+                $target.classList.toggle('is-active');
+
+              });
+            });
+          }
+
+        });
+        </script>
     </body>
 </html>
+
 

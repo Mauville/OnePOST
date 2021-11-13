@@ -102,7 +102,7 @@ class WorksController extends Controller
         ]);
 
         // Save image
-        $path = $request->file('art')->store('art');
+        $path = $request->file('art')->store('storage');
 
         // Lookup networks to post to
         $ids = array_keys($data['providersId']);
