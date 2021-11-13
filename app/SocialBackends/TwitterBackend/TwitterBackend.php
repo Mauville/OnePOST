@@ -27,6 +27,10 @@ class TwitterBackend implements SocialBackend
         $path =storage_path("app\\public\\" . $artwork->URI);
         $path = str_replace("\\", "/", $path);
         Log::alert("Posting media from:" . $path);
+        if(str_starts_with("/app/storage", $path)){
+            Log::alert("Remove bad path");
+            $path = str_replace("/app/storage/", "", $path);
+    }
         $media = $this->connection->upload('media/upload', ['media' => $path]);
         $parameters = [
             'status' => $artwork->description,
