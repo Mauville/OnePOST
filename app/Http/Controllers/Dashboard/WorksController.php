@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\Artwork;
 use App\Models\ScheduledWork;
+use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 use App\Exports\ArtworkExport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -28,12 +30,15 @@ class WorksController extends Controller
             $total = 0;
             foreach ($artwork->stats as $stat)
             {
-                $stat_sum = 0;
-                foreach($stat as $value)
+                if ($stat)
                 {
-                    $stat_sum += $value;
+                    $stat_sum = 0;
+                    foreach($stat as $value)
+                    {
+                        $stat_sum += $value;
+                    }
+                    $total += $stat_sum;
                 }
-                $total += $stat_sum;
             }
             $artwork->totalstats = $total;
             $artwork->save();
@@ -102,7 +107,8 @@ class WorksController extends Controller
         ]);
 
         // Save image
-        $path = $request->file('art')->store('storage');
+        $path = Storage::putFile('artworks', $request->file('art'));
+
 
         // Lookup networks to post to
         $ids = array_keys($data['providersId']);
@@ -127,6 +133,7 @@ class WorksController extends Controller
         $artwork = Artwork::fromRequest($request, $path);
         foreach ($providers as $provider) {
             $provider->createPost($artwork);
+
         }
 
         return redirect()->route('dashboard.works.history');

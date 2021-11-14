@@ -16,7 +16,7 @@
     </div>
     @endif
     <figure class="image is-64x64">
-        <img src="{{ asset($artwork->URI) }}"></figure>
+        <img src="{{ Storage::url($artwork->URI)}}"></figure>
     </figure>
 
     <form method="post" action={{ route("dashboard.works.repostWork", compact('artwork')) }} enctype="multipart/form-data">

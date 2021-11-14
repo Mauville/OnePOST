@@ -6,6 +6,7 @@ use Abraham\TwitterOAuth\TwitterOAuth;
 use App\Models\Artwork;
 use App\SocialBackends\SocialBackend;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class TwitterBackend implements SocialBackend
 {
@@ -24,9 +25,13 @@ class TwitterBackend implements SocialBackend
 
     public function createPost(Artwork $artwork)
     {
-        $path = storage_path("app/public/" . $artwork->URI);
-        Log::alert("Posting media from:" . $path);
-        $media = $this->connection->upload('media/upload', ['media' => $path]);
+        $path = Storage::url($artwork->URI);
+        // $type = pathinfo($path, PATHINFO_EXTENSION);
+        $contents = file_get_contents($path);
+        // $base64 = 'data:image/' . $type . ';base64,' . base64_encode($contents);
+        Storage::disk('local')->put($artwork->URI, $contents);
+        $pathFile = storage_path("app/" . $artwork->URI);
+        $media = $this->connection->upload('media/upload', ['media' => $pathFile]);
         $parameters = [
             'status' => $artwork->description,
             'media_ids' => $media->media_id_string
@@ -38,6 +43,18 @@ class TwitterBackend implements SocialBackend
         $artwork->twitter_post_id = $response->id_str;
         $artwork->save();
         return $response;
+    }
+
+    public function uploadImageFromS3($connection, $path, $parameters) {
+        $file = file_get_contents($path);
+        $parameters['media'] = base64_encode($file);
+        return $this->http(
+            'POST',
+            $connection::UPLOAD_HOST,
+            $path,
+            $parameters,
+            false,
+        );
     }
 
     /**

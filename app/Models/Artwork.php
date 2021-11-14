@@ -59,11 +59,7 @@ class Artwork extends Model
             $key = $provider->type . '@' . $provider->username;
             $stats[$key] = $provider->getPostStatistics($this);
         }
-        if (empty($stats)) {
-            return false;
-        }
         return $stats;
-
     }
 
     public function user() {

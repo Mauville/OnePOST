@@ -30,7 +30,7 @@
         <tr>
             <th class="is-vcentered">
                 <figure class="image is-32x32">
-                    <img src="{{ asset($artwork->URI) }}"></figure>
+                    <img src="{{ Storage::url($artwork->URI)}}"></figure>
             </th>
             <td class="is-vcentered">{{ $artwork->name }}</td>
             <td class="is-vcentered">{{ $artwork->created_at->format('j F Y') }}</td>

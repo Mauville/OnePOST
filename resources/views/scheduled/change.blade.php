@@ -16,7 +16,7 @@
     </div>
     @endif
     <figure class="image is-64x64">
-        <img src="{{ asset('storage/'.$scheduled->URI) }}"></figure>
+        <img src="{{ Storage::url($scheduled->URI)}}"></figure>
     </figure>
 
     <form method="post" action={{ route("dashboard.scheduled.changeScheduled", compact('scheduled')) }} enctype="multipart/form-data">
