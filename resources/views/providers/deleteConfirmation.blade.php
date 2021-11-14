@@ -45,9 +45,11 @@
             <td class="is-vcentered">
                 <ul>
                 @foreach($artwork->getStatistics() as $providerName => $stats)
+                    @if ($stats)
                     <li>En {{ $providerName }}</li>
                     <li>Retweets: {{ $stats["retweet_count"] }}</li>
                     <li>Favoritos: {{ $stats["favorite_count"] }}</li>
+                    @endif
                 @endforeach
                 </ul>
             </td>

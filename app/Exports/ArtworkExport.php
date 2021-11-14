@@ -7,6 +7,7 @@ use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ArtworkExport implements FromQuery, WithMapping, WithHeadings
 {
@@ -28,7 +29,7 @@ class ArtworkExport implements FromQuery, WithMapping, WithHeadings
     {
         $artwork->stats = $artwork->getStatistics();
         return [
-            env('APP_URL') . '/' . $artwork->URI,
+            Storage::url($artwork->URI),
             $artwork->name,
             $artwork->created_at,
             $artwork->updated_at,
